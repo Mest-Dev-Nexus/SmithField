@@ -9,12 +9,15 @@ import {
   ThermometerSnowflake,
   Package,
   Link as LinkIcon,
-  Play,
-  Pause,
+  Snowflake,
+  PackageCheck,
+  BriefcaseBusiness,
+  Sprout,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import checkplant from "../images/checkplant.jpg";
 import bgvid from "../images/bgvid.mp4";
+import bgvid2 from "../images/bgvid2.mp4";
 import bgpic from "../images/bgpic.jpg";
 import coolr from "../images/coolr.png";
 import honcho from "../images/honcho.png";
@@ -22,49 +25,108 @@ import llyodstunnels from "../images/llyodstunnels.png";
 import mobilemakola from "../images/mobilemakola.png";
 import youngfarmers from "../images/youngfarmers.png";
 
-const Home = () => {
-  const videoRef = useRef(null);
-  const [activePartner, setActivePartner] = useState(0);
-  const partners = [
+const AutoCarousel = () => {
+  const [index, setIndex] = useState(0);
+  const slideRef = useRef(null);
+  const slides = [
     {
       name: "Young Farmers' Corps Ghana",
       logo: youngfarmers,
-      testimonial:
-        "Collaborating with SmithField has empowered our members with modern farming techniques.",
     },
     {
       name: "Mobile Makola",
       logo: mobilemakola,
-      testimonial:
-        "Their digital solutions have revolutionized how we connect farmers to urban markets.",
     },
     {
       name: "Lloyds Tunnels and Farms",
       logo: llyodstunnels,
-      testimonial:
-        "The greenhouse technology has increased our yields by over 150%.",
     },
     {
       name: "90s Honcho",
       logo: honcho,
-      testimonial:
-        "Their cold chain solutions have preserved our produce quality remarkably.",
     },
     {
       name: "CoolR",
       logo: coolr,
-      testimonial:
-        "Partnering with SmithField has expanded our reach in the agricultural sector.",
     },
   ];
 
-  const nextPartner = () => {
-    setActivePartner((prev) => (prev + 1) % partners.length);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, 5000); // slide every 3 seconds
 
-  const prevPartner = () => {
-    setActivePartner((prev) => (prev - 1 + partners.length) % partners.length);
-  };
+    return () => clearInterval(interval); // cleanup on unmount
+  }, [slides.length]);
+
+  useEffect(() => {
+    if (slideRef.current) {
+      slideRef.current.style.transform = `translateX(-${index * 100}%)`;
+    }
+  }, [index]);
+
+  return (
+    <div className="overflow-hidden relative h-64">
+      <div
+        ref={slideRef}
+        className="flex transition-transform duration-500 ease-in-out"
+        style={{ width: `${slides.length * 100}%` }}
+      >
+        {slides.map((slide, i) => (
+          <div key={i} className="w-full flex-shrink-0 p-8">
+            <div className="bg-gray-50 rounded-xl shadow-sm p-8 h-full border border-gray-200">
+              <div className="flex flex-col md:flex-row items-center">
+                <div className="w-24 h-24 rounded-full mb-4 md:mb-0 md:mr-8 flex-shrink-0">
+                  <img
+                    src={slide.logo}
+                    alt={slide.name}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+                <div className="text-center md:text-left">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    {slide.name}
+                  </h3>
+                  <p className="italic text-gray-600">"{slide.testimonial}"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Home = () => {
+  const videoRef = useRef(null);
+
+  // Add the missing partners array
+  const partners = [
+    {
+      name: "Young Farmers' Corps Ghana",
+      logo: youngfarmers,
+    },
+    {
+      name: "Mobile Makola",
+      logo: mobilemakola,
+    },
+    {
+      name: "Lloyds Tunnels and Farms",
+      logo: llyodstunnels,
+    },
+    {
+      name: "90s Honcho",
+      logo: honcho,
+    },
+    {
+      name: "CoolR",
+      logo: coolr,
+    },
+  ];
+
+  // Add the missing state for activePartner
+  const [activePartner, setActivePartner] = useState(0);
 
   return (
     <div className="font-nunito-sans min-h-screen bg-white">
@@ -190,6 +252,7 @@ const Home = () => {
       </div>
 
       {/* What We Do Section */}
+
       <div className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-6 animate-fadeIn">
@@ -264,12 +327,32 @@ const Home = () => {
           {/* Additional Solutions */}
 
           <div className="text-center mt-12 animate-fadeIn">
-            <Link
-              to="/services"
-              className="inline-block bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-lg font-medium hover:bg-green-50 transition-colors shadow-sm hover:shadow transform hover:-translate-y-1"
-            >
-              View All Solutions
-            </Link>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                to="/services/cold-storage"
+                className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
+              >
+                <Snowflake size={20} /> Cold Storage
+              </Link>
+              <Link
+                to="/services/postharvest-management"
+                className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
+              >
+                <PackageCheck size={20} /> Postharvest Management
+              </Link>
+              <Link
+                to="/services/agribusiness-consultancy"
+                className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
+              >
+                <BriefcaseBusiness size={20} /> Agribusiness Consultancy
+              </Link>
+              <Link
+                to="/services/farm-tools-and-inputs"
+                className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
+              >
+                <Sprout size={20} /> Farm Tools, Seeds & Fertilizers
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -325,72 +408,66 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Partners Section */}
-      <div className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12 animate-fadeIn">
-            <div>
-              <h2 className="text-4xl font-bold text-gray-800 mb-2 flex items-center">
-                Our Trusted Partners
-              </h2>
-              <p className="text-gray-600 max-w-xl">
-                Collaborating with industry leaders to drive agricultural
-                transformation
-              </p>
-            </div>
-            <div className="flex mt-6 md:mt-0">
-              <button
-                onClick={prevPartner}
-                className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 mr-2 transition-colors"
-                aria-label="Previous partner"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                onClick={nextPartner}
-                className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
-                aria-label="Next partner"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          </div>
+       {/* Partners Section */}
+<div className="py-20 bg-white">
+  <div className="container mx-auto px-6">
+    <div className="max-w-3xl mx-auto text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Subsidiaries</h2>
+      <div className="w-24 h-1 bg-gray-800 mx-auto mb-6"></div>
+      <p className="text-lg text-gray-600">
+        Collaborating with industry leaders to drive agricultural transformation
+      </p>
+    </div>
 
-          <div className="bg-gray-50 rounded-xl shadow-sm p-8 mb-12 animate-fadeInUp border border-gray-200">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="w-24 h-24 rounded-full mb-4 flex items-center justify-center">
-                <img
-                  src={partners[activePartner].logo}
-                  alt={partners[activePartner].name}
-                  className="h-24 object-contain"
+    <div className="relative group">
+      {/* Navigation Arrows - Only show on hover */}
+      <button
+        onClick={() => setActivePartner(prev => (prev - 1 + partners.length) % partners.length)}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white text-gray-800 transition-all opacity-0 group-hover:opacity-100"
+        aria-label="Previous partner"
+      >
+        <ChevronLeft size={24} />
+      </button>
+      
+      <div className="overflow-hidden px-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {partners.map((partner, index) => (
+            <div 
+              key={index}
+              className={`flex flex-col items-center p-6 rounded-xl transition-all duration-300 ${
+                activePartner === index 
+                  ? "bg-green-50 border-2 border-green-300 shadow-lg" 
+                  : "bg-gray-50 hover:bg-gray-100 border border-gray-200"
+              }`}
+            >
+              <div className="w-28 h-28 p-4 flex items-center justify-center mb-4 bg-white rounded-full shadow-sm">
+                <img 
+                  src={partner.logo} 
+                  alt={partner.name} 
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
                 />
               </div>
-
-              <div className="md:w-3/4 md:pl-8">
-                <h3 className="text-center text-xl font-bold text-gray-800 mb-2">
-                  {partners[activePartner].name}
-                </h3>
-                <p className="text-center italic text-gray-600 mb-6">
-                  "{partners[activePartner].testimonial}"
-                </p>
-              </div>
+              <h3 className="text-lg font-semibold text-center text-gray-800 mb-2">
+                {partner.name}
+              </h3>
+              <div className="h-px w-16 bg-green-300 my-2"></div>
+           
             </div>
-          </div>
-
-          <div className="flex justify-center space-x-2">
-            {partners.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActivePartner(index)}
-                className={`w-3 h-3 rounded-full ${
-                  index === activePartner ? "bg-green-600" : "bg-gray-300"
-                }`}
-                aria-label={`Go to partner ${index + 1}`}
-              />
-            ))}
-          </div>
+          ))}
         </div>
       </div>
+
+      <button 
+        onClick={() => setActivePartner(prev => (prev + 1) % partners.length)}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white text-gray-800 transition-all opacity-0 group-hover:opacity-100"
+        aria-label="Next partner"
+      >
+        <ChevronRight size={24} />
+      </button>
+    </div>
+    
+    </div>
 
       {/* Success Stories Section */}
       <div className="py-20 bg-gray-50">
@@ -399,10 +476,10 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Farmer Success Stories
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-blue-500 mx-auto mb-6"></div>
+            <div className="w-24 h-1 bg-gray-800 mx-auto mb-6"></div>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Discover how our solutions are transforming lives and businesses
-              across Africa.
+              across Africa
             </p>
           </div>
 
@@ -433,7 +510,7 @@ const Home = () => {
                   From Subsistence to Commercial Farming
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  How a smallholder farmer in Kenya increased tomato yields by
+                  How a smallholder farmer in Ghana increased tomato yields by
                   200% and expanded to export markets using our greenhouse
                   solutions.
                 </p>
@@ -474,7 +551,7 @@ const Home = () => {
                   Preserving Prosperity
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  A fruit farmers' cooperative in Nigeria reduced post-harvest
+                  A fruit farmers' cooperative in Ghana reduced post-harvest
                   losses from 40% to under 5% with our solar-powered cold
                   storage units.
                 </p>
@@ -633,6 +710,17 @@ const Home = () => {
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-gray-700 mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="phone mumber"
+                    id="phone number"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="+233 123456789"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-gray-700 mb-2">
                     Email Address
                   </label>
                   <input
@@ -725,8 +813,8 @@ const Home = () => {
               </div>
               <p className="text-gray-600 italic text-lg leading-relaxed">
                 "The cold storage units have been a game-changer for our
-                business. We now export fresh produce to Europe with confidence
-                in quality and shelf life."
+                business. We now export fresh produce all over Africa with
+                confidence in quality and shelf life."
               </p>
             </div>
 
@@ -791,24 +879,24 @@ const Home = () => {
                 </ul>
               </div>
               <div className="md:w-1/3 w-full">
-                <div className="flex flex-col">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    className="px-4 py-4 rounded-lg mb-3 border border-gray-300 w-full focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
-                  />
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-medium shadow-sm hover:shadow transition-all">
-                    Subscribe
-                  </button>
-                  <p className="text-xs text-gray-500 mt-2">
-                    We respect your privacy. Unsubscribe at any time.
-                  </p>
+                <div className="flex flex-row">
+                  <Link to="https://www.instagram.com/smithfield_agribusiness/">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-medium shadow-sm hover:shadow transition-all">
+                      Instagram
+                    </button>
+                  </Link>
+                  <Link to="https:gh.linkedin.com/company/smithfield-agribusiness">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-medium shadow-sm hover:shadow transition-all">
+                      Linkedin
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
