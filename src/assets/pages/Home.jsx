@@ -17,7 +17,6 @@ import {
 import { Link } from "react-router-dom";
 import checkplant from "../images/checkplant.jpg";
 import bgvid from "../images/bgvid.mp4";
-import bgvid2 from "../images/bgvid2.mp4";
 import bgpic from "../images/bgpic.jpg";
 import coolr from "../images/coolr.png";
 import honcho from "../images/honcho.png";
