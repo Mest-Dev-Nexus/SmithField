@@ -23,109 +23,10 @@ import honcho from "../images/honcho.png";
 import llyodstunnels from "../images/llyodstunnels.png";
 import mobilemakola from "../images/mobilemakola.png";
 import youngfarmers from "../images/youngfarmers.png";
-
-const AutoCarousel = () => {
-  const [index, setIndex] = useState(0);
-  const slideRef = useRef(null);
-  const slides = [
-    {
-      name: "Young Farmers' Corps Ghana",
-      logo: youngfarmers,
-    },
-    {
-      name: "Mobile Makola",
-      logo: mobilemakola,
-    },
-    {
-      name: "Lloyds Tunnels and Farms",
-      logo: llyodstunnels,
-    },
-    {
-      name: "90s Honcho",
-      logo: honcho,
-    },
-    {
-      name: "CoolR",
-      logo: coolr,
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 5000); // slide every 3 seconds
-
-    return () => clearInterval(interval); // cleanup on unmount
-  }, [slides.length]);
-
-  useEffect(() => {
-    if (slideRef.current) {
-      slideRef.current.style.transform = `translateX(-${index * 100}%)`;
-    }
-  }, [index]);
-
-  return (
-    <div className="overflow-hidden relative h-64">
-      <div
-        ref={slideRef}
-        className="flex transition-transform duration-500 ease-in-out"
-        style={{ width: `${slides.length * 100}%` }}
-      >
-        {slides.map((slide, i) => (
-          <div key={i} className="w-full flex-shrink-0 p-8">
-            <div className="bg-gray-50 rounded-xl shadow-sm p-8 h-full border border-gray-200">
-              <div className="flex flex-col md:flex-row items-center">
-                <div className="w-24 h-24 rounded-full mb-4 md:mb-0 md:mr-8 flex-shrink-0">
-                  <img
-                    src={slide.logo}
-                    alt={slide.name}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-                <div className="text-center md:text-left">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {slide.name}
-                  </h3>
-                  <p className="italic text-gray-600">"{slide.testimonial}"</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+import bgvid2 from "../images/bgvid2.mp4"
 
 const Home = () => {
   const videoRef = useRef(null);
-
-  // Add the missing partners array
-  const partners = [
-    {
-      name: "Young Farmers' Corps Ghana",
-      logo: youngfarmers,
-    },
-    {
-      name: "Mobile Makola",
-      logo: mobilemakola,
-    },
-    {
-      name: "Lloyds Tunnels and Farms",
-      logo: llyodstunnels,
-    },
-    {
-      name: "90s Honcho",
-      logo: honcho,
-    },
-    {
-      name: "CoolR",
-      logo: coolr,
-    },
-  ];
-
-  // Add the missing state for activePartner
-  const [activePartner, setActivePartner] = useState(0);
 
   return (
     <div className="font-nunito-sans min-h-screen bg-white">
@@ -140,10 +41,10 @@ const Home = () => {
           playsInline
           preload="auto"
           poster={bgpic}
-          src={bgvid}
+          src={bgvid2}
           type="video/mp4"
         >
-          <source src={bgvid} type="video/mp4" />
+          <source src={bgvid2} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -154,8 +55,8 @@ const Home = () => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
               Transforming
               <span className="text-green-500">.</span>
-              <span className="text-green-500 block mt-2">Africa's</span>
-              Agriculture
+              <span className="text-green-500 block mt-2">Agribusiness</span>
+              in Africa
               <span className="text-green-500">.</span>
             </h1>
 
@@ -328,7 +229,7 @@ const Home = () => {
           <div className="text-center mt-12 animate-fadeIn">
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                to="/services/cold-storage"
+                to="/services"
                 className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
               >
                 <Snowflake size={20} /> Cold Storage
@@ -340,13 +241,13 @@ const Home = () => {
                 <PackageCheck size={20} /> Postharvest Management
               </Link>
               <Link
-                to="/services/agribusiness-consultancy"
+                to="/services"
                 className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
               >
                 <BriefcaseBusiness size={20} /> Agribusiness Consultancy
               </Link>
               <Link
-                to="/services/farm-tools-and-inputs"
+                to="/services"
                 className="flex items-center gap-2 bg-white border-2 border-green-600 text-green-700 px-5 py-3 rounded-lg font-medium hover:bg-green-50 transition-all shadow-sm hover:shadow transform hover:-translate-y-1 w-full sm:w-auto"
               >
                 <Sprout size={20} /> Farm Tools, Seeds & Fertilizers
@@ -407,206 +308,203 @@ const Home = () => {
         </div>
       </div>
 
-       {/* Partners Section */}
-<div className="py-20 bg-white">
-  <div className="container mx-auto px-6">
-    <div className="max-w-3xl mx-auto text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Subsidiaries</h2>
-      <div className="w-24 h-1 bg-gray-800 mx-auto mb-6"></div>
-      <p className="text-lg text-gray-600">
-        Collaborating with industry leaders to drive agricultural transformation
-      </p>
-    </div>
-
-    <div className="relative group">
-      {/* Navigation Arrows - Only show on hover */}
-      <button
-        onClick={() => setActivePartner(prev => (prev - 1 + partners.length) % partners.length)}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white text-gray-800 transition-all opacity-0 group-hover:opacity-100"
-        aria-label="Previous partner"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      
-      <div className="overflow-hidden px-2">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {partners.map((partner, index) => (
-            <div 
-              key={index}
-              className={`flex flex-col items-center p-6 rounded-xl transition-all duration-300 ${
-                activePartner === index 
-                  ? "bg-green-50 border-2 border-green-300 shadow-lg" 
-                  : "bg-gray-50 hover:bg-gray-100 border border-gray-200"
-              }`}
-            >
-              <div className="w-28 h-28 p-4 flex items-center justify-center mb-4 bg-white rounded-full shadow-sm">
-                <img 
-                  src={partner.logo} 
-                  alt={partner.name} 
-                  className="max-h-full max-w-full object-contain"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-lg font-semibold text-center text-gray-800 mb-2">
-                {partner.name}
-              </h3>
-              <div className="h-px w-16 bg-green-300 my-2"></div>
-           
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <button 
-        onClick={() => setActivePartner(prev => (prev + 1) % partners.length)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white text-gray-800 transition-all opacity-0 group-hover:opacity-100"
-        aria-label="Next partner"
-      >
-        <ChevronRight size={24} />
-      </button>
-    </div>
-    
-    </div>
-
-      {/* Success Stories Section */}
-      <div className="py-20 bg-gray-50">
+      {/* Partners Section */}
+      <div className="py-20 bg-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16 animate-fadeIn">
+          <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Farmer Success Stories
+              Our Subsidiaries
             </h2>
             <div className="w-24 h-1 bg-gray-800 mx-auto mb-6"></div>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Discover how our solutions are transforming lives and businesses
-              across Africa
+            <p className="text-lg text-gray-600">
+              Collaborating with industry leaders to drive agricultural
+              transformation
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1 animate-fadeInUp delay-100 border border-gray-100">
-              <div className="h-56 bg-gray-200 overflow-hidden relative">
-                <img
-                  src={checkplant}
-                  alt="Kenya Greenhouse"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                  <span className="text-white font-medium">
-                    Greenhouse Success
-                  </span>
-                </div>
-              </div>
-              <div className="p-8">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                    <Leaf size={20} className="text-green-700" />
+          <div className="relative group">
+            <div className="overflow-hidden px-2 flex items-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
+                <div className="flex flex-col items-center p-6 rounded-xl transition-all duration-300">
+                  <div className="w-28 h-28 p-4 flex items-center justify-center mb-4 bg-white rounded-full shadow-sm">
+                    <img
+                      src={youngfarmers}
+                      alt="Young Farmers"
+                      className="max-h-full max-w-full object-contain"
+                      loading="lazy"
+                    />
                   </div>
-                  <span className="text-sm text-gray-500">
-                    Greenhouse Technology
+                  <h3 className="text-lg font-semibold text-center text-gray-800 mb-2">
+                    Young Farmers
+                  </h3>
+                  <span className="text-lg font-semibold text-center text-gray-800 mb-2">
+                    (Corperative Society)
                   </span>
+
+                  <div className="h-px w-16 bg-green-300 my-2"></div>
                 </div>
-                <h3 className="font-bold text-2xl text-gray-800 mb-4">
-                  From Subsistence to Commercial Farming
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  How a smallholder farmer in Ghana increased tomato yields by
-                  200% and expanded to export markets using our greenhouse
-                  solutions.
-                </p>
-                <Link
-                  to="/success-stories/greenhouse-kenya"
-                  className="inline-flex items-center text-green-600 font-medium group transition-all"
-                >
-                  Read full story
-                  <ChevronRight
-                    size={18}
-                    className="ml-2 group-hover:ml-3 transition-all"
-                  />
-                </Link>
+
+                <div className="flex flex-col items-center p-6 rounded-xl transition-all duration-300">
+                  <div className="w-28 h-28 p-4 flex items-center justify-center mb-4 bg-white rounded-full shadow-sm">
+                    <img
+                      src={mobilemakola}
+                      alt="Mobile Makola"
+                      className="max-h-full max-w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold text-center text-gray-800 mb-2">
+                    Mobile Makola
+                  </h3>
+                  <div className="h-px w-16 bg-green-300 my-2"></div>
+                </div>
+
+                <div className="flex flex-col items-center p-6 rounded-xl transition-all duration-300">
+                  <div className="w-28 h-28 p-4 flex items-center justify-center mb-4 bg-white rounded-full shadow-sm">
+                    <img
+                      src={llyodstunnels}
+                      alt="Lloyds Tunnels and Farms"
+                      className="max-h-full max-w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold text-center text-gray-800 mb-2">
+                    Lloyds Tunnels and Farms
+                  </h3>
+                  <div className="h-px w-16 bg-green-300 my-2"></div>
+                </div>
+
+                <div className="flex flex-col items-center p-6 rounded-xl transition-all duration-300">
+                  <div className="w-28 h-28 p-4 flex items-center justify-center mb-4 bg-white rounded-full shadow-sm">
+                    <img
+                      src={coolr}
+                      alt="CoolR"
+                      className="max-h-full max-w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold text-center text-gray-800 mb-2">
+                    CoolR
+                  </h3>
+                  <div className="h-px w-16 bg-green-300 my-2"></div>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1 animate-fadeInUp delay-200 border border-gray-100">
-              <div className="h-56 bg-gray-200 overflow-hidden relative">
-                <img
-                  src={checkplant}
-                  alt="Nigeria Cold Storage"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                  <span className="text-white font-medium">
-                    Cold Chain Solution
-                  </span>
-                </div>
-              </div>
-              <div className="p-8">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <ThermometerSnowflake size={20} className="text-blue-700" />
+      {/* Farmers Join Society CTA */}
+      <div className="py-20 bg-gradient-to-r from-green-50 to-green-100">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden animate-fadeIn border border-green-200">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/2 p-12 bg-green-600 text-white flex flex-col justify-center">
+                <div className="flex items-center mb-6">
+                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center transform transition-all hover:rotate-12">
+                    <Sprout size={32} className="text-white" />
                   </div>
-                  <span className="text-sm text-gray-500">Cold Storage</span>
+                  <h2 className="text-3xl font-bold ml-4">Join Our Farmers</h2>
                 </div>
-                <h3 className="font-bold text-2xl text-gray-800 mb-4">
-                  Preserving Prosperity
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  A fruit farmers' cooperative in Ghana reduced post-harvest
-                  losses from 40% to under 5% with our solar-powered cold
-                  storage units.
+                <p className="text-lg mb-8 leading-relaxed">
+                  Become part of a growing community of progressive farmers
+                  gaining access to premium markets, modern farming techniques,
+                  and financial support.
                 </p>
-                <Link
-                  to="/success-stories/cold-storage-nigeria"
-                  className="inline-flex items-center text-blue-600 font-medium group transition-all"
-                >
-                  Read full story
-                  <ChevronRight
-                    size={18}
-                    className="ml-2 group-hover:ml-3 transition-all"
-                  />
-                </Link>
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-center">
+                    <span className="bg-white/20 rounded-full p-1 mr-3">
+                      <ChevronRight size={16} className="text-white" />
+                    </span>
+                    Collective bargaining power for better prices
+                  </li>
+                  <li className="flex items-center">
+                    <span className="bg-white/20 rounded-full p-1 mr-3">
+                      <ChevronRight size={16} className="text-white" />
+                    </span>
+                    Access to subsidized inputs and equipment
+                  </li>
+                  <li className="flex items-center">
+                    <span className="bg-white/20 rounded-full p-1 mr-3">
+                      <ChevronRight size={16} className="text-white" />
+                    </span>
+                    Regular training sessions from agricultural experts
+                  </li>
+                </ul>
               </div>
-            </div>
 
-            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-lg hover:-translate-y-1 animate-fadeInUp delay-300 border border-gray-100">
-              <div className="h-56 bg-gray-200 overflow-hidden relative">
-                <img
-                  src={checkplant}
-                  alt="Ghana Digital Market"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                  <span className="text-white font-medium">
-                    Digital Marketplace
-                  </span>
-                </div>
-              </div>
-              <div className="p-8">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                    <LinkIcon size={20} className="text-green-700" />
-                  </div>
-                  <span className="text-sm text-gray-500">
-                    Digital Solutions
-                  </span>
-                </div>
-                <h3 className="font-bold text-2xl text-gray-800 mb-4">
-                  Connecting to Prosperity
+              <div className="md:w-1/2 p-12 bg-white">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">
+                  Are you a farmer looking to grow?
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  How our digital platform helped Ghanaian farmers increase
-                  income by 45% through direct market access and transparent
-                  pricing.
+                <p className="text-gray-600 mb-8">
+                  Join SmithField Agribusiness today and take your farming
+                  business to the next level with our support.
                 </p>
-                <Link
-                  to="/success-stories/digital-ghana"
-                  className="inline-flex items-center text-green-600 font-medium group transition-all"
-                >
-                  Read full story
-                  <ChevronRight
-                    size={18}
-                    className="ml-2 group-hover:ml-3 transition-all"
-                  />
-                </Link>
+                <form className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="farmer-name"
+                      className="block text-gray-700 mb-2"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="farmer-name"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="farmer-phone"
+                      className="block text-gray-700 mb-2"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="farmer-phone"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="+233 123456789"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="farmer-location"
+                      className="block text-gray-700 mb-2"
+                    >
+                      Farm Location
+                    </label>
+                    <input
+                      type="text"
+                      id="farmer-location"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="Region/District"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="farmer-crops"
+                      className="block text-gray-700 mb-2"
+                    >
+                      Main Crops/Livestock
+                    </label>
+                    <input
+                      type="text"
+                      id="farmer-crops"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="What do you farm?"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-bold transition-colors shadow-md hover:shadow-lg"
+                  >
+                    Join Us
+                  </button>
+                </form>
               </div>
             </div>
           </div>
@@ -878,7 +776,7 @@ const Home = () => {
                 </ul>
               </div>
               <div className="md:w-1/3 w-full">
-                <div className="flex flex-row">
+                <div className="flex flex-row justify-center-safe gap-10">
                   <Link to="https://www.instagram.com/smithfield_agribusiness/">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-medium shadow-sm hover:shadow transition-all">
                       Instagram
@@ -895,7 +793,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
