@@ -1259,7 +1259,6 @@ GHC {getTotalPrice().toFixed(2)}
             )}
           </div>
         </div>
-        filteredProducts.length
         {/* Mobile Cart Sidebar (only visible when toggled) */}
         {isMobileCartOpen && (
           <div className="lg:hidden fixed inset-0 z-50 bg-black bg-opacity-50">
