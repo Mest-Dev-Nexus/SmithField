@@ -11,11 +11,17 @@ import {
   X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import gh1 from "../images/grnhs1.jpeg";
+import gh2 from "../images/grnhs2.jpeg";
+import gh3 from "../images/grnhs3.jpeg";
+import gh4 from "../images/grnhs4.jpeg";
+import postharv1 from "../images/postharv1.jpeg"
+import postharv2 from "../images/postharv2.jpeg"
+import postharv3 from "../images/postharv3.jpeg"
+import postharv4 from "../images/postharv4.JPG"
 
 // Import your images - replace these with your actual imports
-const greenhouseImage = "/api/placeholder/800/600";
 const coldStorageImage = "/api/placeholder/800/600";
-const postharvestImage = "/api/placeholder/800/600";
 const consultancyImage = "/api/placeholder/800/600";
 
 const Services = () => {
@@ -31,7 +37,7 @@ const Services = () => {
       title: "Greenhouse Solutions",
       icon: Sun,
       color: "green",
-      image: greenhouseImage,
+      image: gh3,
       imageAlt: "Greenhouse Farming Solutions",
       imageLabel: "Greenhouse Technology",
       description:
@@ -44,9 +50,9 @@ const Services = () => {
       details:
         "Our greenhouse solutions are designed to optimize growing conditions for any crop type. We provide custom-built greenhouses with automated climate control systems that regulate temperature, humidity, and ventilation. Our team handles everything from site assessment and construction to systems integration and staff training. We specialize in hydroponic, aquaponic, and soil-based growing systems that maximize space utilization and resource efficiency while minimizing environmental impact.",
       galleryImages: [
-        "/api/placeholder/500/300",
-        "/api/placeholder/500/300",
-        "/api/placeholder/500/300",
+        gh1,
+        gh2,
+        gh4
       ],
       link: "/services",
       linkText: "Explore greenhouse solutions",
@@ -81,7 +87,7 @@ const Services = () => {
       title: "Postharvest Management",
       icon: Package,
       color: "yellow",
-      image: postharvestImage,
+      image: postharv1,
       imageAlt: "Postharvest Management Solutions",
       imageLabel: "Postharvest Technology",
       description:
@@ -94,9 +100,9 @@ const Services = () => {
       details:
         "Our postharvest management systems help you maintain product quality and reduce losses after harvesting. We provide equipment and training for proper handling, cleaning, sorting, and packaging of produce. Our solutions include washing lines, drying facilities, sorting tables, and packaging stations tailored to your specific crops. We also offer value-addition technologies that can transform your raw produce into shelf-stable products with higher market value, including juice extraction, pulping, drying, and packaging equipment.",
       galleryImages: [
-        "/api/placeholder/500/300",
-        "/api/placeholder/500/300",
-        "/api/placeholder/500/300",
+        postharv2,
+        postharv3,
+        postharv4
       ],
       link: "/services",
       linkText: "Discover postharvest solutions",

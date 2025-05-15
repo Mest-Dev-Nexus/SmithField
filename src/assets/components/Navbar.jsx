@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-green-50 shadow-md">
+    <nav className=" bg-green-50 shadow-md sticky">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
@@ -55,9 +55,9 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Link to="/supply-chain">
+            <Link to="/login">
               <button className="bg-black text-white px-4 py-2 rounded-full font-medium hidden sm:block hover:bg-green-600 transition duration-300">
-                Become A Supplier !
+                 Login
               </button>
             </Link>
 
@@ -114,13 +114,7 @@ const Navbar = () => {
               Contact Us
             </Link>
 
-            <div className="flex items-center space-x-4 px-3 py-2">
-              <Link to="/supply-chain">
-                <button className="bg-black text-white px-4 py-2 rounded-full font-medium hover:bg-green-600 transition duration-300">
-                  Become A Supplier !
-                </button>
-              </Link>
-            </div>
+           
           </div>
         </div>
       )}

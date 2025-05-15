@@ -24,6 +24,11 @@ import llyodstunnels from "../images/llyodstunnels.png";
 import mobilemakola from "../images/mobilemakola.png";
 import youngfarmers from "../images/youngfarmers.png";
 import bgvid2 from "../images/bgvid2.mp4"
+import stan from "../images/stan.jpeg"
+import grnhs1 from "../images/grnhs1.jpeg"
+import grnhs2 from "../images/grnhs2.jpeg"
+import grnhs3 from "../images/grnhs3.jpeg"
+import grnhs4 from "../images/grnhs4.jpeg"
 
 const Home = () => {
   const videoRef = useRef(null);
@@ -40,11 +45,11 @@ const Home = () => {
           loop
           playsInline
           preload="auto"
-          poster={bgpic}
-          src={bgvid2}
+          poster={stan}
+          // src={bgvid2}
           type="video/mp4"
         >
-          <source src={bgvid2} type="video/mp4" />
+          {/* <source src={bgvid2} type="video/mp4" /> */}
           Your browser does not support the video tag.
         </video>
 
@@ -165,7 +170,7 @@ const Home = () => {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/2 bg-gray-200 h-80 md:h-auto overflow-hidden relative">
                 <img
-                  src={checkplant}
+                  src={grnhs3}
                   alt="Greenhouse Farming Solutions"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -394,123 +399,132 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Farmers Join Society CTA */}
-      <div className="py-20 bg-gradient-to-r from-green-50 to-green-100">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden animate-fadeIn border border-green-200">
-            <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/2 p-12 bg-green-600 text-white flex flex-col justify-center">
-                <div className="flex items-center mb-6">
-                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center transform transition-all hover:rotate-12">
-                    <Sprout size={32} className="text-white" />
-                  </div>
-                  <h2 className="text-3xl font-bold ml-4">Join Our Farmers</h2>
-                </div>
-                <p className="text-lg mb-8 leading-relaxed">
-                  Become part of a growing community of progressive farmers
-                  gaining access to premium markets, modern farming techniques,
-                  and financial support.
-                </p>
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-center">
-                    <span className="bg-white/20 rounded-full p-1 mr-3">
-                      <ChevronRight size={16} className="text-white" />
-                    </span>
-                    Collective bargaining power for better prices
-                  </li>
-                  <li className="flex items-center">
-                    <span className="bg-white/20 rounded-full p-1 mr-3">
-                      <ChevronRight size={16} className="text-white" />
-                    </span>
-                    Access to subsidized inputs and equipment
-                  </li>
-                  <li className="flex items-center">
-                    <span className="bg-white/20 rounded-full p-1 mr-3">
-                      <ChevronRight size={16} className="text-white" />
-                    </span>
-                    Regular training sessions from agricultural experts
-                  </li>
-                </ul>
+{/* Farmers Join Society CTA */}
+<div className="py-20 bg-white">
+  <div className="container mx-auto px-6">
+    <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden animate-fadeIn border border-green-200">
+      <div className="flex flex-col md:flex-row">
+        {/* Left side with background image and overlay */}
+        <div className="md:w-1/2 relative">
+          <img
+            src={bgpic}
+            alt="African agriculture background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-700/80 to-green-700/90">
+          <div className="relative z-10 p-12 text-white h-full flex flex-col justify-center">
+            <div className="flex items-center mb-6">
+              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center transform transition-all hover:rotate-12">
+                <Sprout size={32} className="text-white" />
               </div>
-
-              <div className="md:w-1/2 p-12 bg-white">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">
-                  Are you a farmer looking to grow?
-                </h3>
-                <p className="text-gray-600 mb-8">
-                  Join SmithField Agribusiness today and take your farming
-                  business to the next level with our support.
-                </p>
-                <form className="space-y-6">
-                  <div>
-                    <label
-                      htmlFor="farmer-name"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="farmer-name"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="farmer-phone"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="farmer-phone"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="+233 123456789"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="farmer-location"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Farm Location
-                    </label>
-                    <input
-                      type="text"
-                      id="farmer-location"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Region/District"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="farmer-crops"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Main Crops/Livestock
-                    </label>
-                    <input
-                      type="text"
-                      id="farmer-crops"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="What do you farm?"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-bold transition-colors shadow-md hover:shadow-lg"
-                  >
-                    Join Us
-                  </button>
-                </form>
-              </div>
+              <h2 className="text-3xl font-bold ml-4">Join Our Farmer Network</h2>
             </div>
+            <p className="text-lg mb-8 leading-relaxed">
+              Become part of a growing community of progressive farmers
+              gaining access to premium markets, modern farming techniques,
+              and financial support.
+            </p>
+            <ul className="space-y-4 mb-8">
+              <li className="flex items-center">
+                <span className="bg-white/20 rounded-full p-1 mr-3">
+                  <ChevronRight size={16} className="text-white" />
+                </span>
+                Collective bargaining power for better prices
+              </li>
+              <li className="flex items-center">
+                <span className="bg-white/20 rounded-full p-1 mr-3">
+                  <ChevronRight size={16} className="text-white" />
+                </span>
+                Access to subsidized inputs and equipment
+              </li>
+              <li className="flex items-center">
+                <span className="bg-white/20 rounded-full p-1 mr-3">
+                  <ChevronRight size={16} className="text-white" />
+                </span>
+                Regular training sessions from agricultural experts
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+        </div>
 
+        {/* Right side with form */}
+        <div className="md:w-1/2 p-12 bg-white">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6">
+            Are you a farmer looking to grow?
+          </h3>
+          <p className="text-gray-600 mb-8">
+            Join SmithField Agribusiness today and take your farming
+            business to the next level with our support.
+          </p>
+          <form className="space-y-6">
+            <div>
+              <label
+                htmlFor="farmer-name"
+                className="block text-gray-700 mb-2"
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="farmer-name"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                placeholder="Your name"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="farmer-phone"
+                className="block text-gray-700 mb-2"
+              >
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="farmer-phone"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                placeholder="+233 123456789"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="farmer-location"
+                className="block text-gray-700 mb-2"
+              >
+                Farm Location
+              </label>
+              <input
+                type="text"
+                id="farmer-location"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                placeholder="Region/District"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="farmer-crops"
+                className="block text-gray-700 mb-2"
+              >
+                Main Crops/Livestock
+              </label>
+              <input
+                type="text"
+                id="farmer-crops"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                placeholder="What do you farm?"
+              />
+            </div>
+           <button type="submit"
+                  className="w-full bg-gradient-to-r from-blue-600 to-green-500 text-white py-4 rounded-lg font-bold hover:from-blue-700 hover:to-green-600 transition-colors shadow-md hover:shadow-lg"
+                >
+              Join Us
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       {/* CTA Section */}
       <div className="py-20 bg-white">
         <div className="container mx-auto px-6">
