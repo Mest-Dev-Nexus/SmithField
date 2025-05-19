@@ -3,11 +3,18 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // Initialize cartItems with useState properly
   const [cartItems, setCartItems] = useState(() => {
+    // Safely get cart items from localStorage
     if (typeof window !== 'undefined') {
-      const savedCart = localStorage.getItem('cartItems');
-      return savedCart ? JSON.parse(savedCart) : [];
+      try {
+        const savedCart = localStorage.getItem('cartItems');
+        // Return empty array if no saved cart or invalid JSON
+        if (!savedCart) return [];
+        return JSON.parse(savedCart) || [];
+      } catch (error) {
+        console.error('Failed to parse cart items:', error);
+        return [];
+      }
     }
     return [];
   });
@@ -19,7 +26,11 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    try {
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    } catch (error) {
+      console.error('Failed to save cart items:', error);
+    }
   }, [cartItems]);
 
   const addToCart = (product) => {
@@ -53,34 +64,23 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const updateCartQuantity = (productId, newQuantity) => {
-    setCartItems((prev) =>
-      newQuantity <= 0
-        ? prev.filter((item) => item.id !== productId)
-        : prev.map((item) =>
-            item.id === productId ? { ...item, quantity: newQuantity } : item
-          )
-    );
-  };
+  // Remove duplicate updateCartQuantity function since it's the same as updateQuantity
+  // const updateCartQuantity = ...
+
   const value = {
     cartItems,
-    setCartItems, // Make sure this is included
+    setCartItems,
     addToCart,
     removeFromCart,
-    updateCartQuantity, // This is used in ShopCart
-    updateQuantity, // You might want to consolidate these
+    updateCartQuantity: updateQuantity, // Use the same function
     toggleCart,
     isCartOpen,
-    getCartTotal, // Add this function
+    getCartTotal,
     cartCount: cartItems.reduce((total, item) => total + item.quantity, 0),
-    cartTotal: getCartTotal(), // Use the function here
+    cartTotal: getCartTotal(),
   };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => {
@@ -90,3 +90,5 @@ export const useCart = () => {
   }
   return context;
 };
+
+export { CartContext };

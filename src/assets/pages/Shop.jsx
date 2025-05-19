@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   ShoppingBag,
   Truck,
@@ -13,7 +13,8 @@ import WholesaleVendorModal from "../components/modals/WholesaleLogin";
 import SubscriptionModal from "../components/modals/Subscription";
 import AuthModal from "../components/modals/WholesaleLogin";
 import ProductModal from "../components/modals/ProductModal";
-import CartButton from "../components/cart/CartButton";
+import { CartContext } from "../context/CartContext";
+import { useCart } from "../context/CartContext"
 
 // Subscription packages data
 const subscriptionPackages = [
@@ -76,7 +77,8 @@ const subscriptionPackages = [
 
 // const [subscriptionPackages, setSubscriptionPackages] = useState([]);
 // const [isLoadingSubscriptions, setIsLoadingSubscriptions] = useState(false);
-// const [subscriptionError, setSubscriptionError] = useState(null);
+// const [subscriptionError, setSubscriptionError] = useState(null);const subscriptionPackages = [
+
 
 const productCategories = {
   retail: ["fruits", "vegetables", "meat", "dairy", "grains"],
@@ -118,20 +120,19 @@ const dayOptions = [
 ];
 
 const Shop = () => {
+   const { 
+    cartItems, 
+    addToCart, 
+    updateCartQuantity, 
+    cartCount,
+    isCartOpen
+  } = useCart();
+  
   // State management
   const [activeCategory, setActiveCategory] = useState("retail");
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  // Cart state
-  const [cartItems, setCartItems] = useState(() => {
-    if (typeof window !== "undefined") {
-      const savedCart = localStorage.getItem("cartItems");
-      return savedCart ? JSON.parse(savedCart) : [];
-    }
-    return [];
-  });
   const [showCart, setShowCart] = useState(false);
   const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
 
@@ -158,8 +159,8 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Mock products data - replace with your actual API call
-        const mockProducts = {
+        // Mock products data
+         const mockProducts = {
           retail: [
             {
               id: "prod1",
@@ -323,7 +324,7 @@ const Shop = () => {
         };
 
         setProducts(mockProducts);
-        setFilteredProducts(mockProducts.retail); // Set initial filtered products
+        setFilteredProducts(mockProducts.retail);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -352,41 +353,7 @@ const Shop = () => {
     }
   }, [searchQuery, activeCategory, products]);
 
-  // Save cart to localStorage
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  // Cart functions
-  const addToCart = (product) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
-      return existingItem
-        ? prevItems.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        : [...prevItems, { ...product, quantity: 1 }];
-    });
-  };
-
-  const updateCartQuantity = (productId, newQuantity) => {
-    setCartItems((prev) =>
-      newQuantity <= 0
-        ? prev.filter((item) => item.id !== productId)
-        : prev.map((item) =>
-            item.id === productId ? { ...item, quantity: newQuantity } : item
-          )
-    );
-  };
-
-  const toggleCart = () => {
-    window.innerWidth < 1024
-      ? setIsMobileCartOpen(!isMobileCartOpen)
-      : setShowCart(!showCart);
-  };
-
+  
   // Category functions
   const handleCategoryChange = (categoryId) => {
     if (categoryId === "wholesale") {
@@ -464,6 +431,7 @@ const Shop = () => {
     }
   };
 
+
   const handleWholesaleClick = () => {
     setAuthModal({ show: true, type: "wholesale" });
   };
@@ -474,7 +442,7 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Wholesale Vendor Modal */}
+          {/* Wholesale Vendor Modal */}
       <WholesaleVendorModal
         showWholesaleModal={showWholesaleModal}
         setShowWholesaleModal={setShowWholesaleModal}
@@ -537,20 +505,17 @@ const Shop = () => {
         </div>
       </div>
 
+
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
-        {/* Products Section */}
+           {/* Products Section */}
         <div className={`${showCart ? "lg:w-3/4" : "w-full"} lg:pr-8`}>
           <div className="flex flex-col md:flex-row items-center mb-8 gap-4">
             <h2 className="text-2xl font-bold text-gray-800 mr-auto">
               {categories.find((cat) => cat.id === activeCategory)?.name}
             </h2>
 
-            {/* Cart Toggle Button */}
-            <CartButton
-              itemCount={cartItems.length}
-              onClick={() => setShowCart(true)}
-            />
+           
 
             {/* Subscription Button (only for retail) */}
             {activeCategory === "retail" && (
@@ -662,18 +627,8 @@ const Shop = () => {
           )}
         </div>
 
-        {/* Shopping Cart */}
-        <ShopCart
-          cartItems={cartItems}
-          setCartItems={setCartItems}
-          isMobileCartOpen={isMobileCartOpen}
-          setIsMobileCartOpen={setIsMobileCartOpen}
-          activeCategory={activeCategory}
-          getBtnColor={getBtnColor}
-          showCart={showCart}
-          setShowCart={setShowCart}
-          onCheckout={triggerCheckoutLogin}
-        />
+
+ 
       </div>
     </div>
   );

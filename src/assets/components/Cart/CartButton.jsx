@@ -1,4 +1,3 @@
-// src/components/shop/CartButton.js
 import React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
