@@ -94,7 +94,6 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Shopping Cart - This will show when isCartOpen is true */}
       <ShopCart />
     </nav>
   );
