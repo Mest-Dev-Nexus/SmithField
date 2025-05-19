@@ -9,6 +9,8 @@ const ShopCart = () => {
   const { cartItems, setCartItems, isCartOpen, toggleCart, updateCartQuantity, getCartTotal } = useCart();
   const { getBtnColor } = useUI();
   const { triggerCheckoutLogin, closeModal } = useModals();
+
+   if (!isCartOpen) return null;
   
   // State for checkout
   const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false);
@@ -59,7 +61,17 @@ const ShopCart = () => {
   if (!isCartOpen) return null;
   
   return (
-    <div className="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out overflow-auto">
+   <div>
+       {/* Blurred overlay */}
+       {isCartOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-30 z-40"
+          onClick={toggleCart}
+        />
+      )}
+
+    <div className="fixed top-16 right-0 bottom-0 w-full sm:w-96 bg-white shadow-lg z-40 overflow-auto">
+      
       <div className="p-4">
         {isCheckoutOpen ? (
           <Checkout 
@@ -175,6 +187,7 @@ const ShopCart = () => {
         )}
       </div>
     </div>
+   </div>
   );
 };
 

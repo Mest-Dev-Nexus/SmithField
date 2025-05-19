@@ -7,8 +7,7 @@ import ShopCart from "../components/Cart/ShopCart";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isCartOpen, toggleCart, cartCount } = useCart(); // Get cart state from context
-
+  const { isCartOpen, toggleCart, cartCount } = useCart(); 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
