@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ShoppingBag,
   Truck,
@@ -9,12 +9,9 @@ import {
 } from "lucide-react";
 import mobilemakola from "../images/mobilemakola.png";
 import ShopCart from "../components/Cart/ShopCart";
-import WholesaleVendorModal from "../components/modals/WholesaleLogin";
 import SubscriptionModal from "../components/modals/Subscription";
-import AuthModal from "../components/modals/WholesaleLogin";
 import ProductModal from "../components/modals/ProductModal";
-import { CartContext } from "../context/CartContext";
-import { useCart } from "../context/CartContext"
+import { useCart } from "../context/CartContext";
 
 // Subscription packages data
 const subscriptionPackages = [
@@ -75,11 +72,6 @@ const subscriptionPackages = [
   },
 ];
 
-// const [subscriptionPackages, setSubscriptionPackages] = useState([]);
-// const [isLoadingSubscriptions, setIsLoadingSubscriptions] = useState(false);
-// const [subscriptionError, setSubscriptionError] = useState(null);const subscriptionPackages = [
-
-
 const productCategories = {
   retail: ["fruits", "vegetables", "meat", "dairy", "grains"],
   wholesale: ["fruits", "vegetables", "meat", "dairy", "grains"],
@@ -120,7 +112,7 @@ const dayOptions = [
 ];
 
 const Shop = () => {
-   const { 
+  const { 
     cartItems, 
     addToCart, 
     updateCartQuantity, 
@@ -135,9 +127,10 @@ const Shop = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showCart, setShowCart] = useState(false);
   const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
-  // Modals state
-  const [authModal, setAuthModal] = useState({ show: false, type: "shopper" });
+  // Subscription state
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [subscription, setSubscription] = useState({
     type: "custom",
@@ -161,165 +154,177 @@ const Shop = () => {
       try {
         // Mock products data
          const mockProducts = {
-          retail: [
+           retail: [
+      {
+        id: "prod1",
+        name: "Fresh Vegetables",
+        category: "vegetables",
+        price: 2.99,
+        unit: "lb",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
+      },
+      {
+        id: "prod2",
+        name: "Fruits",
+        category: "fruits",
+        price: 3.49,
+        unit: "lb",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1550258987-190a2d41a8ba",
+      },
+      {
+        id: "prod3",
+        name: "Grains",
+        category: "grains",
+        price: 4.99,
+        unit: "bag",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
+      },
+      {
+        id: "prod4",
+        name: "Dairy",
+        category: "dairy",
+        price: 3.99,
+        unit: "unit",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+      },
+      {
+        id: "prod5",
+        name: "Organic Vegetables",
+        category: "vegetables",
+        price: 3.99,
+        unit: "lb",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1542838132-92c53300491e",
+      },
+      {
+        id: "prod6",
+        name: "Seasonal Fruits",
+        category: "fruits",
+        price: 4.49,
+        unit: "lb",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
+      },
+      {
+        id: "prod7",
+        name: "Whole Grains",
+        category: "grains",
+        price: 5.99,
+        unit: "bag",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1544025162-d76694265947",
+      },
+      {
+        id: "prod8",
+        name: "Plant-Based Dairy",
+        category: "dairy",
+        price: 4.49,
+        unit: "unit",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+      },
+      {
+        id: "prod9",
+        name: "Pre-cut Vegetables",
+        category: "vegetables",
+        price: 3.49,
+        unit: "pack",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
+      },
+      {
+        id: "prod10",
+        name: "Meat",
+        category: "meat",
+        price: 6.99,
+        unit: "lb",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1602476527208-9c2a66a0916f",
+      },
+      {
+        id: "prod11",
+        name: "Pasta",
+        category: "grains",
+        price: 2.99,
+        unit: "box",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
+      },
+      {
+        id: "prod12",
+        name: "Sauces",
+        category: "grains",
+        price: 3.49,
+        unit: "jar",
+        description:
+          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+        storage: "Store in cool dry place",
+        details: "Naturally ripened",
+        image:
+          "https://images.unsplash.com/photo-1544025162-d76694265947",
+      },
+    ],
+          wholesale: [
+            // Add your wholesale products here (no login required)
             {
-              id: "prod1",
-              name: "Fresh Vegetables",
+              id: "w-prod1",
+              name: "Wholesale Vegetables",
               category: "vegetables",
-              price: 2.99,
-              unit: "lb",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
-            },
-            {
-              id: "prod2",
-              name: "Fruits",
-              category: "fruits",
-              price: 3.49,
-              unit: "lb",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1550258987-190a2d41a8ba",
-            },
-            {
-              id: "prod3",
-              name: "Grains",
-              category: "grains",
-              price: 4.99,
-              unit: "bag",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
-            },
-            {
-              id: "prod4",
-              name: "Dairy",
-              category: "dairy",
-              price: 3.99,
-              unit: "unit",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1550583724-b2692b85b150",
-            },
-            {
-              id: "prod5",
-              name: " Vegetables",
-              category: "vegetables",
-              price: 3.99,
-              unit: "lb",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1542838132-92c53300491e",
-            },
-            {
-              id: "prod6",
-              name: " Fruits",
-              category: "fruits",
-              price: 4.49,
-              unit: "lb",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
-            },
-            {
-              id: "prod7",
-              name: "Whole Grains",
-              category: "grains",
-              price: 5.99,
-              unit: "bag",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1544025162-d76694265947",
-            },
-            {
-              id: "prod8",
-              name: "Plant-Based Dairy",
-              category: "dairy",
-              price: 4.49,
-              unit: "unit",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1550583724-b2692b85b150",
-            },
-            {
-              id: "prod9",
-              name: "Pre-cut Vegetables",
-              category: "vegetables",
-              price: 3.49,
-              unit: "pack",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
-            },
-            {
-              id: "prod10",
-              name: "Meat",
-              category: "meat",
-              price: 6.99,
-              unit: "lb",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1602476527208-9c2a66a0916f",
-            },
-            {
-              id: "prod11",
-              name: "Pasta",
-              category: "grains",
-              price: 2.99,
-              unit: "box",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
-            },
-            {
-              id: "prod12",
-              name: "Sauces",
-              category: "grains",
-              price: 3.49,
-              unit: "jar",
-              description:
-                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-              storage: "Store in cool dry place",
-              details: "Naturally ripened",
-              image:
-                "https://images.unsplash.com/photo-1544025162-d76694265947",
-            },
+              price: 1.99, // wholesale price
+              unit: "case",
+              description: "Wholesale vegetables",
+              image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655"
+            }
+            // ... more wholesale products
           ],
-          wholesale: [],
           tools: [],
         };
 
@@ -353,15 +358,10 @@ const Shop = () => {
     }
   }, [searchQuery, activeCategory, products]);
 
-  
   // Category functions
   const handleCategoryChange = (categoryId) => {
-    if (categoryId === "wholesale") {
-      setAuthModal({ show: true, type: "wholesale" });
-    } else {
-      setActiveCategory(categoryId);
-      setSearchQuery("");
-    }
+    setActiveCategory(categoryId);
+    setSearchQuery("");
   };
 
   const getCategoryBgColor = (category) => {
@@ -393,12 +393,6 @@ const Shop = () => {
     }
   };
 
-  // Auth functions
-  const handleAuthSuccess = (userData) => {
-    setAuthModal((prev) => ({ ...prev, show: false }));
-    if (authModal.type === "wholesale") setActiveCategory("wholesale");
-  };
-
   // Subscription functions
   const saveSubscription = () => {
     setShowSubscriptionModal(false);
@@ -409,50 +403,8 @@ const Shop = () => {
     );
   };
 
-  const [showWholesaleModal, setShowWholesaleModal] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-  const [vendorDetails, setVendorDetails] = useState({
-    email: "",
-    password: "",
-    businessName: "",
-    phoneNumber: "",
-  });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const endpoint =
-        userType === "wholesale" ? "/api/wholesale-auth" : "/api/shopper-auth";
-
-      const response = await axios.post(endpoint, credentials);
-      onSuccess(response.data);
-    } catch (error) {
-      // Handle error
-    }
-  };
-
-
-  const handleWholesaleClick = () => {
-    setAuthModal({ show: true, type: "wholesale" });
-  };
-
-  const triggerCheckoutLogin = () => {
-    setAuthModal({ show: true, type: "shopper" });
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
-          {/* Wholesale Vendor Modal */}
-      <WholesaleVendorModal
-        showWholesaleModal={showWholesaleModal}
-        setShowWholesaleModal={setShowWholesaleModal}
-        isLogin={isLogin}
-        setIsLogin={setIsLogin}
-        vendorDetails={vendorDetails}
-        setVendorDetails={setVendorDetails}
-        handleSubmit={handleSubmit}
-      />
-
       {/* Subscription Modal */}
       <SubscriptionModal
         showSubscriptionModal={showSubscriptionModal}
@@ -465,14 +417,6 @@ const Shop = () => {
         frequencyOptions={frequencyOptions}
         dayOptions={dayOptions}
         saveSubscription={saveSubscription}
-      />
-
-      {/* Authentication Modal */}
-      <AuthModal
-        showModal={authModal.show}
-        setShowModal={(show) => setAuthModal({ ...authModal, show })}
-        userType={authModal.type}
-        onSuccess={handleAuthSuccess}
       />
 
       {/* Product Modal */}
@@ -488,45 +432,44 @@ const Shop = () => {
       <div className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-8">
           <img src={mobilemakola} alt="Mobile Makola" className="mb-4" />
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryChange(category.id)}
-                className={`flex items-center px-4 py-2 rounded-full font-medium transition duration-200 ${getCategoryBgColor(
-                  category.id
-                )}`}
-              >
-                {category.icon}
-                {category.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
-           {/* Products Section */}
-        <div className={`${showCart ? "lg:w-3/4" : "w-full"} lg:pr-8`}>
-          <div className="flex flex-col md:flex-row items-center mb-8 gap-4">
-            <h2 className="text-2xl font-bold text-gray-800 mr-auto">
-              {categories.find((cat) => cat.id === activeCategory)?.name}
-            </h2>
-
-           
-
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+            <div className="flex flex-wrap gap-2 flex-1">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategoryChange(category.id)}
+                  className={`flex items-center px-4 py-2 rounded-full font-medium transition duration-200 ${getCategoryBgColor(
+                    category.id
+                  )}`}
+                >
+                  {category.icon}
+                  {category.name}
+                </button>
+              ))}
+            </div>
+            
             {/* Subscription Button (only for retail) */}
             {activeCategory === "retail" && (
               <button
                 onClick={() => setShowSubscriptionModal(true)}
-                className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition whitespace-nowrap"
               >
                 <ShoppingBasketIcon className="w-5 h-5 mr-2" />
                 Create Subscription
               </button>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
+        {/* Products Section */}
+        <div className={`${showCart ? "lg:w-3/4" : "w-full"} lg:pr-8`}>
+          <div className="flex flex-col md:flex-row items-center mb-8 gap-4">
+            <h2 className="text-2xl font-bold text-gray-800 mr-auto">
+              {categories.find((cat) => cat.id === activeCategory)?.name}
+            </h2>
 
             {/* Search Bar */}
             <div className="relative w-full md:w-64">
@@ -614,6 +557,9 @@ const Shop = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           addToCart(product);
+                          setToastMessage(`${product.name} added to cart!`);
+                          setShowToast(true);
+                          setTimeout(() => setShowToast(false), 3000);
                         }}
                         className={`p-2 rounded-full ${getBtnColor()} text-white hover:opacity-90`}
                       >
@@ -627,8 +573,11 @@ const Shop = () => {
           )}
         </div>
 
-
- 
+        {showToast && (
+          <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md transition-transform duration-300 transform translate-y-0">
+            {toastMessage}
+          </div>
+        )}
       </div>
     </div>
   );

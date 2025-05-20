@@ -1,7 +1,3 @@
-// This file contains all the data used in the Shop component
-// Moving data out of components improves organization and maintainability
-
-// Subscription packages data
 export const subscriptionPackages = [
     {
       id: "family-essentials",

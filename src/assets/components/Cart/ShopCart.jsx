@@ -1,18 +1,22 @@
 import React from "react";
-import { X, Trash2, ShoppingBag } from "lucide-react";
+import { X, Trash2, ShoppingBag, Calendar, RotateCw } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useUI } from "../../context/UIContext";
 import { useModals } from "../../context/ModalContext";
-import Checkout from "../shop/Checkout"; 
+import Checkout from "../shop/Checkout";
 
 const ShopCart = () => {
-  const { cartItems, setCartItems, isCartOpen, toggleCart, updateCartQuantity, getCartTotal } = useCart();
+  const {
+    cartItems,
+    setCartItems,
+    isCartOpen,
+    toggleCart,
+    updateCartQuantity,
+    getCartTotal,
+  } = useCart();
   const { getBtnColor } = useUI();
   const { triggerCheckoutLogin, closeModal } = useModals();
 
-   if (!isCartOpen) return null;
-  
-  // State for checkout
   const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false);
   const [checkoutInfo, setCheckoutInfo] = React.useState({
     name: "",
@@ -20,27 +24,26 @@ const ShopCart = () => {
     phone: "",
     address: "",
     addressNotes: "",
-    paymentMethod: "mobile_money"
+    paymentMethod: "mobile_money",
   });
+  const [showClearCartConfirm, setShowClearCartConfirm] = React.useState(false);
 
-  // Remove all items from cart
   const clearCart = () => {
     setCartItems([]);
+    setShowClearCartConfirm(false);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCheckoutInfo(prev => ({
+    setCheckoutInfo((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmitOrder = (e) => {
     e.preventDefault();
-    // Handle order submission logic here
     console.log("Order submitted:", { checkoutInfo, cartItems });
-    // After successful submission:
     setCartItems([]);
     setIsCheckoutOpen(false);
     toggleCart();
@@ -49,51 +52,77 @@ const ShopCart = () => {
 
   const handleCheckoutClick = () => {
     triggerCheckoutLogin({
-      onLoginSuccess: () => {
-        setIsCheckoutOpen(true);
-      },
-      onContinueAsGuest: () => {
-        setIsCheckoutOpen(true);
-      }
+      onLoginSuccess: () => setIsCheckoutOpen(true),
+      onContinueAsGuest: () => setIsCheckoutOpen(true),
     });
   };
 
+  // Function to render subscription details
+  const renderSubscriptionDetails = (item) => {
+    const { subscriptionDetails } = item;
+    if (!subscriptionDetails) return null;
+    
+    return (
+      <div className="mt-1 text-xs text-gray-500">
+        <div className="flex items-center gap-1 mb-1">
+          <RotateCw className="w-3 h-3" />
+          <span>
+            {subscriptionDetails.type === "custom" 
+              ? "Custom Subscription" 
+              : subscriptionDetails.selectedPackage?.name}
+          </span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Calendar className="w-3 h-3" />
+          <span>
+            {subscriptionDetails.frequency}, every {subscriptionDetails.deliveryDay || "Monday"}
+          </span>
+        </div>
+        {subscriptionDetails.products && subscriptionDetails.products.length > 0 && (
+          <div className="mt-1">
+            <span>{subscriptionDetails.products.length} items in subscription</span>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   if (!isCartOpen) return null;
-  
+
   return (
-   <div>
-       {/* Blurred overlay */}
-       {isCartOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
-          onClick={toggleCart}
-        />
-      )}
+    <>
+      {/* Overlay */}
+      <div
+        className="fixed inset-0 z-40 bg-opacity-30 backdrop-blur-sm"
+        onClick={toggleCart}
+        aria-hidden
+      />
 
-    <div className="fixed top-16 right-0 bottom-0 w-full sm:w-96 bg-white shadow-lg z-40 overflow-auto">
-      
-      <div className="p-4">
-        {isCheckoutOpen ? (
-          <Checkout 
-            checkoutInfo={checkoutInfo}
-            handleInputChange={handleInputChange}
-            handleSubmitOrder={handleSubmitOrder}
-            getTotalPrice={getCartTotal}
-            getBtnColor={getBtnColor}
-            setIsCheckoutOpen={setIsCheckoutOpen}
-          />
-        ) : (
-          <>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-semibold">Shopping Cart</h2>
-              <button onClick={toggleCart} className="text-gray-500 hover:text-gray-700">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
+      {/* Cart Drawer */}
+      <aside className="fixed top-0 right-0 bottom-0 w-full sm:w-96 bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out">
+        <div className="p-4 flex flex-col h-full">
+          {/* Header */}
+          <div className="flex justify-between items-center border-b pb-4 mb-4">
+            <h2 className="text-2xl font-semibold">Shopping Cart</h2>
+            <button onClick={toggleCart} className="text-gray-500 hover:text-gray-700">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
 
-            {cartItems.length === 0 ? (
-              <div className="text-center py-8">
-                <div className="mx-auto w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto">
+            {isCheckoutOpen ? (
+              <Checkout
+                checkoutInfo={checkoutInfo}
+                handleInputChange={handleInputChange}
+                handleSubmitOrder={handleSubmitOrder}
+                getTotalPrice={getCartTotal}
+                getBtnColor={getBtnColor}
+                setIsCheckoutOpen={setIsCheckoutOpen}
+              />
+            ) : cartItems.length === 0 ? (
+              <div className="flex flex-col items-center justify-center text-center py-10">
+                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                   <ShoppingBag className="w-10 h-10 text-gray-400" />
                 </div>
                 <p className="text-gray-500 mb-4">Your cart is empty</p>
@@ -106,88 +135,122 @@ const ShopCart = () => {
               </div>
             ) : (
               <>
-                <div className="max-h-[60vh] overflow-y-auto mb-6">
-                  {cartItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex border-b border-gray-100 py-4 items-center"
-                    >
-                      <div className="w-16 h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden mr-4">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-grow">
-                        <h3 className="text-sm font-medium">{item.name}</h3>
-                        <p className="text-gray-500 text-xs">{item.unit}</p>
-                        <div className="flex items-center justify-between mt-2">
-                          <div className="flex items-center border rounded overflow-hidden">
-                            <button
-                              onClick={() =>
-                                updateCartQuantity(item.id, item.quantity - 1)
-                              }
-                              className="px-2 py-1 bg-gray-100 hover:bg-gray-200"
-                            >
-                              -
-                            </button>
-                            <span className="px-2 py-1">{item.quantity}</span>
-                            <button
-                              onClick={() =>
-                                updateCartQuantity(item.id, item.quantity + 1)
-                              }
-                              className="px-2 py-1 bg-gray-100 hover:bg-gray-200"
-                            >
-                              +
-                            </button>
-                          </div>
-                          <span className="font-medium">
-                            GHC {(item.price * item.quantity).toFixed(2)}
-                          </span>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => updateCartQuantity(item.id, 0)}
-                        className="ml-2 text-gray-400 hover:text-red-500"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
+                {cartItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`flex items-center gap-4 py-4 border-b ${item.isSubscription ? 'bg-green-50' : ''}`}
+                  >
+                    <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  ))}
-                </div>
-
-                <div className="border-t border-gray-200 pt-4 mb-6">
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-600">Total</span>
-                    <span className="font-medium">
-                      GHC {getCartTotal().toFixed(2)}
-                    </span>
+                    <div className="flex-grow">
+                      <div className="flex items-center">
+                        <h3 className="text-sm font-medium">{item.name}</h3>
+                        {item.isSubscription && (
+                          <span className="ml-2 text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full">
+                            Subscription
+                          </span>
+                        )}
+                      </div>
+                      
+                      {!item.isSubscription && (
+                        <p className="text-xs text-gray-500">{item.unit}</p>
+                      )}
+                      
+                      {item.isSubscription && renderSubscriptionDetails(item)}
+                      
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center border rounded">
+                          <button
+                            onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
+                            className="px-2 py-1 bg-gray-100 hover:bg-gray-200"
+                          >
+                            -
+                          </button>
+                          <span className="px-3">{item.quantity}</span>
+                          <button
+                            onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
+                            className="px-2 py-1 bg-gray-100 hover:bg-gray-200"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <span className="font-medium">
+                          GHC {(item.price * item.quantity).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => updateCartQuantity(item.id, 0)}
+                      className="text-gray-400 hover:text-red-500"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
                   </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <button
-                    onClick={handleCheckoutClick}
-                    className="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-md font-medium"
-                  >
-                    Checkout
-                  </button>
-                  <button
-                    onClick={clearCart}
-                    className="w-full py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition flex items-center justify-center gap-1"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                    Clear Cart
-                  </button>
-                </div>
+                ))}
               </>
             )}
-          </>
-        )}
-      </div>
-    </div>
-   </div>
+          </div>
+
+          {/* Footer */}
+          {!isCheckoutOpen && cartItems.length > 0 && (
+            <div className="pt-4 border-t mt-4">
+              <div className="flex justify-between mb-4 text-base font-medium">
+                <span>Total</span>
+                <span>GHC {getCartTotal().toFixed(2)}</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleCheckoutClick}
+                  className="flex-1 py-3 bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold"
+                >
+                  Proceed to Checkout
+                </button>
+                <button
+                  onClick={() => setShowClearCartConfirm(true)}
+                  className="p-3 border border-gray-300 text-gray-700 rounded-md hover:border-red-500 hover:bg-gray-50 hover:text-red-500"
+                  title="Clear Cart"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* Clear Cart Confirmation Modal */}
+      {showClearCartConfirm && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <div 
+            className="fixed inset-0 bg-black/50 bg-opacity-30 backdrop-blur-sm"
+            onClick={() => setShowClearCartConfirm(false)}
+          />
+          <div className="relative bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold mb-4">Clear Cart</h3>
+            <p className="mb-6">Are you sure you want to remove all items from your cart?</p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowClearCartConfirm(false)}
+                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={clearCart}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              >
+                Clear Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
