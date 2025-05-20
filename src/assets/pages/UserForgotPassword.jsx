@@ -1,14 +1,25 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Mail } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Mail, ArrowLeft } from "lucide-react";
 import logo from "../images/mobilemakola.png";
 
 const UserForgotPassword = () => {
-    const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the return URL from location state or default to checkout
+  const returnUrl = location.state?.returnUrl || "/checkout";
+
+  // Pre-fill email if provided in location state
+  useEffect(() => {
+    if (location.state?.email) {
+      setEmail(location.state.email);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +41,11 @@ const UserForgotPassword = () => {
       setError(err.response?.data?.message || "Failed to send reset link. Please try again.");
       setLoading(false);
     }
+  };
+
+  const handleReturnToSignIn = () => {
+    // Navigate back to the checkout page with a state flag to open login modal
+    navigate(returnUrl, { state: { openLoginModal: true } });
   };
 
   return (
@@ -97,12 +113,13 @@ const UserForgotPassword = () => {
           </form>
 
           <div className="mt-6 text-center text-sm">
-            <Link
-              to="/login"
-              className="font-medium text-green-600 hover:text-green-500"
+            <button
+              onClick={handleReturnToSignIn}
+              className="font-medium text-green-600 hover:text-green-500 flex items-center justify-center mx-auto"
             >
+              <ArrowLeft className="h-4 w-4 mr-1" />
               Return to sign in
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -110,4 +127,4 @@ const UserForgotPassword = () => {
   );
 };
 
-export default UserForgotPassword
+export default UserForgotPassword;

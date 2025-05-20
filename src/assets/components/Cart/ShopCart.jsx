@@ -93,7 +93,7 @@ const ShopCart = () => {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-40 bg-opacity-30 backdrop-blur-sm"
+        className="fixed inset-0 z-40  backdrop-blur-sm"
         onClick={toggleCart}
         aria-hidden
       />
@@ -255,3 +255,4 @@ const ShopCart = () => {
 };
 
 export default ShopCart;
+
