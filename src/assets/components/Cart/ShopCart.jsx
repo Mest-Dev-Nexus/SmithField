@@ -93,13 +93,13 @@ const ShopCart = () => {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-40  backdrop-blur-sm"
+        className="fixed inset-0 z-40 backdrop-blur-sm"
         onClick={toggleCart}
         aria-hidden
       />
 
-      {/* Cart Drawer */}
-      <aside className="fixed top-0 right-0 bottom-0 w-full sm:w-96 bg-white z-50 shadow-xl transform transition-transform duration-300 ease-in-out">
+      {/* Cart Drawer - Now centered and wider */}
+      <aside className="fixed top-0 bottom-0 left-1/2 transform -translate-x-1/2 w-full sm:w-2/3 md:w-1/2 lg:w-2/5 bg-white z-50 shadow-xl transition-all duration-300 ease-in-out max-h-screen overflow-hidden">
         <div className="p-4 flex flex-col h-full">
           {/* Header */}
           <div className="flex justify-between items-center border-b pb-4 mb-4">
@@ -255,4 +255,3 @@ const ShopCart = () => {
 };
 
 export default ShopCart;
-

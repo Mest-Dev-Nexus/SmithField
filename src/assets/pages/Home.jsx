@@ -72,6 +72,13 @@ const Home = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 animate-fadeInUp delay-200">
+<Link
+                to="/shop"
+                className="bg-white/20 backdrop-blur-sm hover:bg-green-500/40 border border-white/30 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg"
+              >
+                Shop
+              </Link>
+
               <Link
                 to="/services"
                 className="bg-white/20 backdrop-blur-sm hover:bg-green-500/40 border border-white/30 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg"
@@ -85,12 +92,7 @@ const Home = () => {
               >
                 Learn More
               </Link>
-              <Link
-                to="/shop"
-                className="bg-white/20 backdrop-blur-sm hover:bg-green-500/40 border border-white/30 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg"
-              >
-                Shop
-              </Link>
+              
             </div>
           </div>
         </div>
@@ -525,7 +527,94 @@ const Home = () => {
     </div>
   </div>
 </div>
-      {/* CTA Section */}
+
+ 
+
+      {/* Testimonials Section */}
+      <div className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center text-gray-800 mb-6 animate-fadeIn">
+            Voices From the Field
+          </h2>
+          <div className="w-24 h-1 bg-gray-800 mx-auto mb-16"></div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all animate-fadeInUp delay-100 border border-gray-100">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 shadow-sm">
+                  <img
+                    src={checkplant}
+                    alt="Emmanuel Osei"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xl text-gray-800">
+                    Emmanuel Osei
+                  </h3>
+                  <p className="text-gray-600">Tomato Farmer, Ghana</p>
+                  Eastern Region
+                </div>
+              </div>
+              <p className="text-gray-600 italic text-lg leading-relaxed">
+                "Before SmithField, I struggled with pests and low yields. Now
+                with their greenhouse and training, I produce quality tomatoes
+                year-round and sell directly to supermarkets."
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all animate-fadeInUp delay-200 border border-gray-100">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 shadow-sm">
+                  <img
+                    src={checkplant}
+                    alt="Amina Kofi"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xl text-gray-800">
+                    Amina Kofie
+                  </h3>
+                  <p className="text-gray-600">
+                    Agribusiness Owner, Western Region
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-600 italic text-lg leading-relaxed">
+                "The cold storage units have been a game-changer for our
+                business. We now export fresh produce all over Africa with
+                confidence in quality and shelf life."
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all animate-fadeInUp delay-300 border border-gray-100">
+              <div className="flex items-center mb-6">
+                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 shadow-sm">
+                  <img
+                    src={checkplant}
+                    alt="Daniel Mensah"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xl text-gray-800">
+                    Daniel Mensah
+                  </h3>
+                  <p className="text-gray-600">Yam Farmer, Savanna Region</p>
+                </div>
+              </div>
+              <p className="text-gray-600 italic text-lg leading-relaxed">
+                "SmithField's digital platform has given our farmers
+                transparency and bargaining power. We now get fair prices
+                without middlemen taking most of the profit."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     {/* CTA Section */}
       <div className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="relative flex flex-col md:flex-row rounded-lg overflow-hidden">
@@ -666,90 +755,6 @@ const Home = () => {
                   Request Consultation
                 </button>
               </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Testimonials Section */}
-      <div className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-6 animate-fadeIn">
-            Voices From the Field
-          </h2>
-          <div className="w-24 h-1 bg-gray-800 mx-auto mb-16"></div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all animate-fadeInUp delay-100 border border-gray-100">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 shadow-sm">
-                  <img
-                    src={checkplant}
-                    alt="Emmanuel Osei"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl text-gray-800">
-                    Emmanuel Osei
-                  </h3>
-                  <p className="text-gray-600">Tomato Farmer, Ghana</p>
-                  Eastern Region
-                </div>
-              </div>
-              <p className="text-gray-600 italic text-lg leading-relaxed">
-                "Before SmithField, I struggled with pests and low yields. Now
-                with their greenhouse and training, I produce quality tomatoes
-                year-round and sell directly to supermarkets."
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all animate-fadeInUp delay-200 border border-gray-100">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 shadow-sm">
-                  <img
-                    src={checkplant}
-                    alt="Amina Kofi"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl text-gray-800">
-                    Amina Kofie
-                  </h3>
-                  <p className="text-gray-600">
-                    Agribusiness Owner, Western Region
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-600 italic text-lg leading-relaxed">
-                "The cold storage units have been a game-changer for our
-                business. We now export fresh produce all over Africa with
-                confidence in quality and shelf life."
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all animate-fadeInUp delay-300 border border-gray-100">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 shadow-sm">
-                  <img
-                    src={checkplant}
-                    alt="Daniel Mensah"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl text-gray-800">
-                    Daniel Mensah
-                  </h3>
-                  <p className="text-gray-600">Yam Farmer, Savanna Region</p>
-                </div>
-              </div>
-              <p className="text-gray-600 italic text-lg leading-relaxed">
-                "SmithField's digital platform has given our farmers
-                transparency and bargaining power. We now get fair prices
-                without middlemen taking most of the profit."
-              </p>
             </div>
           </div>
         </div>

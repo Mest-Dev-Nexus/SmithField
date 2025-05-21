@@ -6,6 +6,7 @@ import {
   ShoppingBasketIcon,
   Search,
   Plus,
+  X,
 } from "lucide-react";
 import mobilemakola from "../images/mobilemakola.png";
 import ShopCart from "../components/Cart/ShopCart";
@@ -112,14 +113,9 @@ const dayOptions = [
 ];
 
 const Shop = () => {
-  const { 
-    cartItems, 
-    addToCart, 
-    updateCartQuantity, 
-    cartCount,
-    isCartOpen
-  } = useCart();
-  
+  const { cartItems, addToCart, updateCartQuantity, cartCount, isCartOpen } =
+    useCart();
+
   // State management
   const [activeCategory, setActiveCategory] = useState("retail");
   const [searchQuery, setSearchQuery] = useState("");
@@ -128,7 +124,7 @@ const Shop = () => {
   const [showCart, setShowCart] = useState(false);
   const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage, setToastMessage] = useState("");
 
   // Subscription state
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
@@ -153,165 +149,165 @@ const Shop = () => {
     const fetchProducts = async () => {
       try {
         // Mock products data
-         const mockProducts = {
-           retail: [
-      {
-        id: "prod1",
-        name: "Fresh Vegetables",
-        category: "vegetables",
-        price: 2.99,
-        unit: "lb",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
-      },
-      {
-        id: "prod2",
-        name: "Fruits",
-        category: "fruits",
-        price: 3.49,
-        unit: "lb",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1550258987-190a2d41a8ba",
-      },
-      {
-        id: "prod3",
-        name: "Grains",
-        category: "grains",
-        price: 4.99,
-        unit: "bag",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
-      },
-      {
-        id: "prod4",
-        name: "Dairy",
-        category: "dairy",
-        price: 3.99,
-        unit: "unit",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1550583724-b2692b85b150",
-      },
-      {
-        id: "prod5",
-        name: "Organic Vegetables",
-        category: "vegetables",
-        price: 3.99,
-        unit: "lb",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1542838132-92c53300491e",
-      },
-      {
-        id: "prod6",
-        name: "Seasonal Fruits",
-        category: "fruits",
-        price: 4.49,
-        unit: "lb",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
-      },
-      {
-        id: "prod7",
-        name: "Whole Grains",
-        category: "grains",
-        price: 5.99,
-        unit: "bag",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1544025162-d76694265947",
-      },
-      {
-        id: "prod8",
-        name: "Plant-Based Dairy",
-        category: "dairy",
-        price: 4.49,
-        unit: "unit",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1550583724-b2692b85b150",
-      },
-      {
-        id: "prod9",
-        name: "Pre-cut Vegetables",
-        category: "vegetables",
-        price: 3.49,
-        unit: "pack",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
-      },
-      {
-        id: "prod10",
-        name: "Meat",
-        category: "meat",
-        price: 6.99,
-        unit: "lb",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1602476527208-9c2a66a0916f",
-      },
-      {
-        id: "prod11",
-        name: "Pasta",
-        category: "grains",
-        price: 2.99,
-        unit: "box",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
-      },
-      {
-        id: "prod12",
-        name: "Sauces",
-        category: "grains",
-        price: 3.49,
-        unit: "jar",
-        description:
-          "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
-        storage: "Store in cool dry place",
-        details: "Naturally ripened",
-        image:
-          "https://images.unsplash.com/photo-1544025162-d76694265947",
-      },
-    ],
+        const mockProducts = {
+          retail: [
+            {
+              id: "prod1",
+              name: "Fresh Vegetables",
+              category: "vegetables",
+              price: 2.99,
+              unit: "lb",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
+            },
+            {
+              id: "prod2",
+              name: "Fruits",
+              category: "fruits",
+              price: 3.49,
+              unit: "lb",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1550258987-190a2d41a8ba",
+            },
+            {
+              id: "prod3",
+              name: "Grains",
+              category: "grains",
+              price: 4.99,
+              unit: "bag",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
+            },
+            {
+              id: "prod4",
+              name: "Dairy",
+              category: "dairy",
+              price: 3.99,
+              unit: "unit",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+            },
+            {
+              id: "prod5",
+              name: "Organic Vegetables",
+              category: "vegetables",
+              price: 3.99,
+              unit: "lb",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1542838132-92c53300491e",
+            },
+            {
+              id: "prod6",
+              name: "Seasonal Fruits",
+              category: "fruits",
+              price: 4.49,
+              unit: "lb",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
+            },
+            {
+              id: "prod7",
+              name: "Whole Grains",
+              category: "grains",
+              price: 5.99,
+              unit: "bag",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1544025162-d76694265947",
+            },
+            {
+              id: "prod8",
+              name: "Plant-Based Dairy",
+              category: "dairy",
+              price: 4.49,
+              unit: "unit",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+            },
+            {
+              id: "prod9",
+              name: "Pre-cut Vegetables",
+              category: "vegetables",
+              price: 3.49,
+              unit: "pack",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
+            },
+            {
+              id: "prod10",
+              name: "Meat",
+              category: "meat",
+              price: 6.99,
+              unit: "lb",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1602476527208-9c2a66a0916f",
+            },
+            {
+              id: "prod11",
+              name: "Pasta",
+              category: "grains",
+              price: 2.99,
+              unit: "box",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
+            },
+            {
+              id: "prod12",
+              name: "Sauces",
+              category: "grains",
+              price: 3.49,
+              unit: "jar",
+              description:
+                "Locally sourced, organic vegetables harvested at peak ripeness for maximum flavor and nutrition.",
+              storage: "Store in cool dry place",
+              details: "Naturally ripened",
+              image:
+                "https://images.unsplash.com/photo-1544025162-d76694265947",
+            },
+          ],
           wholesale: [
             // Add your wholesale products here (no login required)
             {
@@ -321,15 +317,47 @@ const Shop = () => {
               price: 1.99, // wholesale price
               unit: "case",
               description: "Wholesale vegetables",
-              image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655"
-            }
-            // ... more wholesale products
+              image:
+                "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
+            },
+            {
+              id: "w-prod2",
+              name: "Bulk Grains",
+              category: "grains",
+              price: 15.0,
+              unit: "50kg bag",
+              description:
+                "Large quantity of high-quality grains for bulk purchase.",
+              image:
+                "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
+            },
           ],
-          tools: [],
+          tools: [
+            {
+              id: "t-prod1",
+              name: "Garden Shovel",
+              category: "garden tools",
+              price: 12.5,
+              unit: "piece",
+              description: "Durable garden shovel for all your digging needs.",
+              image:
+                "https://images.unsplash.com/photo-1533035345-a74e9e048187", // Placeholder image
+            },
+            {
+              id: "t-prod2",
+              name: "Organic Fertilizer",
+              category: "fertilizers",
+              price: 25.0,
+              unit: "bag",
+              description: "Eco-friendly fertilizer for healthy plant growth.",
+              image:
+                "https://images.unsplash.com/photo-1598007797072-001d8f8a1e3b", // Placeholder image
+            },
+          ],
         };
 
         setProducts(mockProducts);
-        setFilteredProducts(mockProducts.retail);
+        setFilteredProducts(mockProducts[activeCategory] || []);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -396,11 +424,36 @@ const Shop = () => {
   // Subscription functions
   const saveSubscription = () => {
     setShowSubscriptionModal(false);
-    alert(
+    setToastMessage(
       `Your ${
         subscription.selectedPackage?.name || "custom"
       } subscription has been saved!`
     );
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const handlePlaceOrder = () => {
+    if (cartItems.length === 0) {
+      setToastMessage("Your cart is empty. Add items before placing an order.");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+      return;
+    }
+
+    console.log("Placing order for:", cartItems);
+    // In a real application, this is where you would:
+    // 1. Send the `cartItems` data to your backend API (e.g., using fetch or axios).
+    // 2. Handle payment processing (e.g., redirect to a payment gateway).
+    // 3. Upon successful order, clear the cart.
+    // 4. Display a success message or redirect to an order confirmation page.
+
+    setToastMessage("Order placed successfully!");
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+
+    clearCart(); // Clear the cart from CartContext after order is "placed"
+    setShowCart(false); // Close the cart sidebar
   };
 
   return (
@@ -447,7 +500,7 @@ const Shop = () => {
                 </button>
               ))}
             </div>
-            
+
             {/* Subscription Button (only for retail) */}
             {activeCategory === "retail" && (
               <button
@@ -572,12 +625,6 @@ const Shop = () => {
             </div>
           )}
         </div>
-
-        {showToast && (
-          <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md transition-transform duration-300 transform translate-y-0">
-            {toastMessage}
-          </div>
-        )}
       </div>
     </div>
   );

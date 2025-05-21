@@ -1,23 +1,24 @@
 import React from "react";
-import { X, Lock, Mail, Eye, EyeOff, UserPlus, KeyRound } from "lucide-react";
+import { X, Lock, Mail, Eye, EyeOff, UserPlus, KeyRound, ArrowLeft } from "lucide-react";
 import logo from "../../images/mobilemakola.png";
+import ForgotPasswordModal from "../modals/ForgotPasswordModal";
+import SignupModal from "../modals/SignupModal";
+import ResetPasswordModal from "../modals/ResetPasswordModal";
 
 const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
-  const [showUserLogin, setShowUserLogin] = React.useState(false);
+  const [currentView, setCurrentView] = React.useState("options");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [success, setSuccess] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-
-  // Add navigation functions for signup and forgot password
-  const navigateToSignUp = () => {
-    window.location.href = "/signup"; // Replace with your actual signup page URL
-  };
-
-  const navigateToForgotPassword = () => {
-    window.location.href = "/forgot-password"; // Replace with your actual forgot password page URL
-  };
+  
+  // State for controlling child modals
+ const [showForgotPasswordModal, setShowForgotPasswordModal] = React.useState(false);
+  const [showSignupModal, setShowSignupModal] = React.useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = React.useState(false);
+  const [resetToken, setResetToken] = React.useState("");
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -40,8 +41,30 @@ const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
     }
   };
 
+  const handleForgotPasswordSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      // TODO: Replace with actual API call
+      console.log("Forgot password request for:", email);
+      
+      // Simulate success
+      setTimeout(() => {
+        setLoading(false);
+        setSuccess("Password reset link sent to your email!");
+        setResetToken("simulated_reset_token"); // Set a simulated token
+      }, 1500);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to send reset link. Please try again.");
+      setLoading(false);
+    }
+  };
+
   const renderLoginForm = () => (
-    <div className="p-6">
+      <div className="p-6">
       <div className="text-center mb-6">
         <img className="mx-auto h-16 w-auto" src={logo} alt="Makola Market" />
         <h2 className="mt-4 text-xl font-extrabold text-gray-900">
@@ -115,7 +138,7 @@ const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
           <div className="text-sm">
             <button
               type="button"
-              onClick={navigateToForgotPassword}
+              onClick={() => setShowForgotPasswordModal(true)}
               className="font-medium text-green-600 hover:text-green-500 flex items-center"
             >
               <KeyRound className="h-4 w-4 mr-1" />
@@ -138,27 +161,17 @@ const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
       </form>
 
       <div className="mt-4 text-center">
-        <div className="text-sm mb-2">
-          <span className="text-gray-600">Don't have an account?</span>{" "}
-          <button
-            onClick={navigateToSignUp}
-            className="font-medium text-green-600 hover:text-green-500 flex items-center"
-          >
-            <UserPlus className="h-4 w-4 mr-1" />
-            Sign up
-          </button>
-        </div>
-
         <button
-          onClick={() => setShowUserLogin(false)}
+          onClick={() => setCurrentView("options")}
           className="font-medium text-sm text-green-600 hover:text-green-500"
         >
           Back to checkout options
         </button>
       </div>
     </div>
-  );
 
+  );
+  
   const renderOptions = () => (
     <div className="p-6">
       <div className="text-center mb-6">
@@ -170,14 +183,17 @@ const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
 
       <div className="space-y-4">
         <button
-          onClick={() => setShowUserLogin(true)}
+          onClick={() => setCurrentView("login")}
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
         >
           Login to Your Account
         </button>
         
         <button
-          onClick={navigateToSignUp}
+          onClick={() => {
+            setShowSignupModal(true);
+            // Don't close the checkout modal here - let the signup modal handle it
+          }}
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           <UserPlus className="h-5 w-5 mr-2" />
@@ -201,21 +217,75 @@ const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
     </div>
   );
 
+const renderCurrentView = () => {
+    switch (currentView) {
+      case "login":
+        return renderLoginForm();
+      case "forgotPassword":
+        return renderForgotPasswordForm();
+      case "options":
+      default:
+        return renderOptions();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg w-full max-w-md shadow-xl">
-        <div className="absolute top-4 right-4">
-          <button 
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-500 focus:outline-none"
-          >
-            <X className="h-6 w-6" />
-          </button>
+    <>
+      {/* Main Checkout Login Modal */}
+      {!showSignupModal && !showForgotPasswordModal && !showResetPasswordModal && (
+        <div className="fixed inset-0 bg-black/90 bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg w-full max-w-md shadow-xl">
+            <div className="absolute top-4 right-4">
+              <button 
+                onClick={onClose}
+                className="text-gray-400 hover:text-gray-500 focus:outline-none"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            {renderCurrentView()}
+          </div>
         </div>
-        
-        {showUserLogin ? renderLoginForm() : renderOptions()}
-      </div>
-    </div>
+      )}
+
+      {/* Signup Modal */}
+      <SignupModal
+        isOpen={showSignupModal}
+        onClose={() => {
+          setShowSignupModal(false);
+          // Reopen the checkout modal when signup modal closes
+        }}
+        onLoginClick={() => {
+          setShowSignupModal(false);
+          setCurrentView("login");
+        }}
+        onSuccess={() => {
+          onLoginSuccess();
+          onClose();
+        }}
+      />
+
+<ForgotPasswordModal
+        isOpen={showForgotPasswordModal}
+        onClose={() => setShowForgotPasswordModal(false)}
+        email={email}
+        onSuccess={() => {
+          setShowForgotPasswordModal(false);
+          setShowResetPasswordModal(true);
+        }}
+      />
+
+      <ResetPasswordModal
+        isOpen={showResetPasswordModal}
+        onClose={() => setShowResetPasswordModal(false)}
+        token={resetToken}
+        onSuccess={() => {
+          setShowResetPasswordModal(false);
+          setCurrentView("login");
+        }}
+      />
+      
+          </>
   );
 };
 

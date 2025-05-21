@@ -14,10 +14,6 @@ import Edit  from "./assets/pages/Admin/Edit";
 import FormSubmissions from "./assets/pages/Admin/FormSubmissions";
 import  Login  from "./assets/pages/Login";
 import Signup from "./assets/pages/Signup";
-import UserLogin from "./assets/pages/UserLogin";
-import UserSignup from "./assets/pages/UserSignup";
-import UserForgotPassword from "./assets/pages/UserForgotPassword";
-import UserResetPassword from "./assets/pages/UserResetPassword";
 import Orders from "./assets/pages/Admin/Orders";
 
 function App() {
@@ -47,13 +43,6 @@ function App() {
           <Route path="/admin/forms" element={< FormSubmissions />} />
         </Route>
       </Routes>
-
-      <Routes>
-      <Route path="login" element={<UserLogin />} />
-      <Route path="signup" element={<UserSignup />} />
-      <Route path="forgot-password" element={<UserForgotPassword />} />
-      <Route path="reset-password/:token" element={<UserResetPassword />} />
-    </Routes>
      
     </BrowserRouter>
 
