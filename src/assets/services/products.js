@@ -8,7 +8,7 @@ export const apiCreatePost = async (payload) => {
     });
   };
 
-  export const apiGetAllAppointments = async () => apiClient.get("/appointments");
+  export const apiGetAllProducts = async () => apiClient.get("/get/products");
 
   export const apiGetAllDocs = async () => apiClient.get("/patient/alldocs");
 
