@@ -26,20 +26,28 @@ const CheckoutLoginModal = ({ onLoginSuccess, onContinueAsGuest, onClose }) => {
     setError("");
 
     try {
-      // TODO: Replace with actual API call
-      console.log("Login data:", { email, password });
-      
-      // Simulate successful login
-      setTimeout(() => {
-        setLoading(false);
-        onLoginSuccess();
-        onClose();
-      }, 1500);
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Please try again.");
-      setLoading(false);
+    const response = await fetch("https://feat-smithfieldbackend.onrender.com/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+     if (!response.ok) {
+      throw new Error(data.message || "Login failed. Please try again.");
     }
-  };
+   
+      onLoginSuccess();
+    onClose();
+  } catch (err) {
+    setError(err.message || "Login failed. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();

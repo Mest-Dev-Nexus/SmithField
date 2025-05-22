@@ -3,7 +3,7 @@ import RootLayout from "./assets/layout/RootLayout";
 import AdminLayout from "./assets/layout/AdminLayout";
 import Home from "./assets/pages/Home";
 import Shop from "./assets/pages/Shop";
-import SupplyChainForm from "./assets/pages/supplyChainForm";
+import SupplyChainForm from "./assets/pages/SupplyChainForm";
 import About from "./assets/pages/About";
 import Contact from "./assets/pages/Contact";
 import Services from "./assets/pages/Services";
