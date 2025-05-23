@@ -183,10 +183,8 @@ const Checkout = ({
     setIsCheckoutOpen(false);
   };
 
-  // Handle back button click
+  // Handle back button click - now only navigates back to shopping when explicitly clicked
   const handleBackClick = () => {
-    // Optionally clear storage when going back to shopping
-    // clearStorage();
     setIsCheckoutOpen(false);
   };
 

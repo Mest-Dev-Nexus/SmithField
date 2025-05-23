@@ -8,7 +8,15 @@ export const apiCreatePost = async (payload) => {
     });
   };
 
-  export const apiGetAllProducts = async () => apiClient.get("/get/products");
+export const apiGetAllProducts = async () => {
+  try {
+    const response = await apiClient.get("/get/products");
+    return response;
+  } catch (error) {
+    console.error("Error in apiGetAllProducts:", error);
+    throw error;
+  }
+};
 
   export const apiGetAllDocs = async () => apiClient.get("/patient/alldocs");
 
