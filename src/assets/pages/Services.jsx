@@ -8,7 +8,7 @@ import {
   ChevronRight,
   ChevronDown,
   Phone,
-  X,
+  Check,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import gh1 from "../images/grnhs1.jpeg";
@@ -136,6 +136,7 @@ const Services = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white py-16 font-nunito-sans">
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -146,9 +147,129 @@ const Services = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Comprehensive agricultural solutions designed to maximize
             productivity, sustainability, and profitability for farmers and
-            agribusinesses
+            agribusinesses.SmithField Agribusiness  is a leading agri-marketing and research firm that sources and sells locally-grown, high-quality food to consumers. From vegetables and meats to cereals and other staples, we work with local farmers to bring the freshest, cleanest options to our customers in bulk or retail packs. We use innovative technology to make the process easy and convenient for everyone involved.
           </p>
         </div>
+
+         {/* CTA Section */}
+      <div className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto bg-gradient-to-r from-green-600 to-blue-500 rounded-2xl shadow-xl overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              <div className="lg:w-1/2 p-12 text-white">
+                <h2 className="text-4xl font-bold mb-6">
+                  Ready to Transform Your Agricultural Business?
+                </h2>
+                <p className="text-xl mb-8 leading-relaxed text-white/90">
+                  Our team of agricultural experts is ready to help you
+                  implement solutions that increase productivity, reduce losses,
+                  and connect you to profitable markets.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <div className="bg-white/20 rounded-full p-2 mr-4">
+                      <Check size={18} className="text-white" />
+                    </div>
+                    <span className="font-medium">
+                      Free initial consultation
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="bg-white/20 rounded-full p-2 mr-4">
+                      <Check size={18} className="text-white" />
+                    </div>
+                    <span className="font-medium">Customized solutions</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="bg-white/20 rounded-full p-2 mr-4">
+                      <Check size={18} className="text-white" />
+                    </div>
+                    <span className="font-medium">Ongoing support</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right form section */}
+              <div className="lg:w-1/2 p-12 bg-white">
+                <h3 className="text-3xl font-bold text-gray-900 mb-6">
+                  Schedule a Consultation
+                </h3>
+                <form className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-gray-700 mb-2 font-medium"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block text-gray-700 mb-2 font-medium"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="+233 123456789"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-gray-700 mb-2 font-medium"
+                    >
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="interest"
+                      className="block text-gray-700 mb-2 font-medium"
+                    >
+                      Area of Interest
+                    </label>
+                    <select
+                      id="interest"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="greenhouse">Greenhouse Farming</option>
+                      <option value="cold-storage">
+                        Cold Storage Solutions
+                      </option>
+                      <option value="digital">Digital Market Access</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-green-600 to-blue-500 text-white py-4 rounded-lg font-bold hover:from-green-700 hover:to-blue-600 transition-colors shadow-md hover:shadow-lg"
+                  >
+                    Request Consultation
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
         {/* Services Cards */}
         {serviceDetails.map((service, index) => (
@@ -276,6 +397,8 @@ const Services = () => {
             Get Started Today
           </Link>
         </div>
+
+        
       </div>
     </div>
   );
