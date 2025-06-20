@@ -57,7 +57,7 @@ const Footer = () => {
         <div className="py-4 border-t border-gray-700">
           <div className="flex items-center justify-center">
             <span className="text-gray-400 text-sm">
-              © 2024 SmithField | All rights reserved.
+              © 2025 SmithField | All rights reserved.
             </span>
           </div>
         </div>

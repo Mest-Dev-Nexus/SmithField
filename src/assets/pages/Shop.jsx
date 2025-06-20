@@ -778,6 +778,20 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  // Helper function to construct full image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return mobilemakola;
+    
+    // If it's already a full URL, return as is
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    
+    // If it's a relative path, construct the full URL
+    const baseUrl = 'https://feat-smithfieldbackend.onrender.com';
+    return `${baseUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+  };
+
   // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
@@ -798,7 +812,7 @@ const Shop = () => {
             category: product.category,
             price: parseFloat(product.price || 0),
             shopType: product.shopType,
-            image: product.image || {mobilemakola},
+            image: getImageUrl(product.image), // Use helper function
             quantity: product.quantity || 0,
             availability: product.availability
           }));
@@ -1059,7 +1073,7 @@ const Shop = () => {
                       alt={product.name}
                       className="w-full h-48 object-cover"
                       onError={(e) => {
-                        e.target.src = {mobilemakola};
+                        e.target.src = mobilemakola;
                       }}
                     />
                     {product.quantity <= 10 && product.quantity > 0 && (
