@@ -137,21 +137,7 @@ const Services = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white py-16 font-nunito-sans">
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            Our Services <span className="text-green-600"></span>
-          </h1>
-          <div className="w-24 h-1 bg-gray-800 mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive agricultural solutions designed to maximize
-            productivity, sustainability, and profitability for farmers and
-            agribusinesses.SmithField Agribusiness  is a leading agri-marketing and research firm that sources and sells locally-grown, high-quality food to consumers. From vegetables and meats to cereals and other staples, we work with local farmers to bring the freshest, cleanest options to our customers in bulk or retail packs. We use innovative technology to make the process easy and convenient for everyone involved.
-          </p>
-        </div>
-
-         {/* CTA Section */}
+ {/* CTA Section */}
       <div className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto bg-gradient-to-r from-green-600 to-blue-500 rounded-2xl shadow-xl overflow-hidden">
@@ -270,6 +256,20 @@ const Services = () => {
         </div>
       </div>
 
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            Our Services <span className="text-green-600"></span>
+          </h1>
+          <div className="w-24 h-1 bg-gray-800 mx-auto mb-6"></div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Comprehensive agricultural solutions designed to maximize
+            productivity, sustainability, and profitability for farmers and
+            agribusinesses
+          </p>
+        </div>
 
         {/* Services Cards */}
         {serviceDetails.map((service, index) => (
@@ -397,8 +397,6 @@ const Services = () => {
             Get Started Today
           </Link>
         </div>
-
-        
       </div>
     </div>
   );

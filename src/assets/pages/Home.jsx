@@ -226,91 +226,95 @@ const Home = () => {
           </div>
 
           {/* Additional Solutions */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <Link
-              to="/services/cold-storage"
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-50 transition-colors">
-                  <Snowflake size={28} className="text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  Cold Storage Solutions
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Extend shelf life and reduce post-harvest losses with our
-                state-of-the-art cold storage units.
-              </p>
-              <div className="text-blue-600 font-medium flex items-center">
-                Learn more <ChevronRight size={18} className="ml-1" />
-              </div>
-            </Link>
+         <div className="grid md:grid-cols-2 gap-6">
+  {/* Cold Storage Solutions */}
+  <Link
+    to="/services/cold-storage"
+    className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
+  >
+    <div className="flex items-center mb-6">
+      <div className="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-50 transition-colors">
+        <Snowflake size={28} className="text-blue-600" />
+      </div>
+      <h3 className="text-2xl font-bold text-gray-800">
+        Cold Storage Solutions
+      </h3>
+    </div>
+    <p className="text-gray-600 mb-4">
+      Extend shelf life and reduce post-harvest losses with our
+      state-of-the-art cold storage units.
+    </p>
+    <div className="text-blue-600 font-medium flex items-center">
+      Learn more <ChevronRight size={18} className="ml-1" />
+    </div>
+  </Link>
 
-            <Link
-              to="/services/postharvest-management"
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-green-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-50 transition-colors">
-                  <PackageCheck size={28} className="text-green-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  Postharvest Management
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Comprehensive solutions to maintain quality and value from farm
-                to market.
-              </p>
-              <div className="text-green-600 font-medium flex items-center">
-                Learn more <ChevronRight size={18} className="ml-1" />
-              </div>
-            </Link>
+  {/* Postharvest Management */}
+  <Link
+    to="/services/postharvest-management"
+    className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
+  >
+    <div className="flex items-center mb-6">
+      <div className="bg-green-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-50 transition-colors">
+        <PackageCheck size={28} className="text-green-600" />
+      </div>
+      <h3 className="text-2xl font-bold text-gray-800">
+        Postharvest Management
+      </h3>
+    </div>
+    <p className="text-gray-600 mb-4">
+      Comprehensive solutions to maintain quality and value from farm
+      to market.
+    </p>
+    <div className="text-green-600 font-medium flex items-center">
+      Learn more <ChevronRight size={18} className="ml-1" />
+    </div>
+  </Link>
 
-            <Link
-              to="/services/consultancy"
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-50 transition-colors">
-                  <BriefcaseBusiness size={28} className="text-purple-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  Agribusiness Consultancy
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Expert guidance to optimize your agricultural operations and
-                profitability.
-              </p>
-              <div className="text-purple-600 font-medium flex items-center">
-                Learn more <ChevronRight size={18} className="ml-1" />
-              </div>
-            </Link>
+  {/* Agribusiness Consultancy */}
+  <Link
+    to="/services/consultancy"
+    className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
+  >
+    <div className="flex items-center mb-6">
+      <div className="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-50 transition-colors">
+        <BriefcaseBusiness size={28} className="text-purple-600" />
+      </div>
+      <h3 className="text-2xl font-bold text-gray-800">
+        Agribusiness Consultancy
+      </h3>
+    </div>
+    <p className="text-gray-600 mb-4">
+      Expert guidance to optimize your agricultural operations and
+      profitability.
+    </p>
+    <div className="text-purple-600 font-medium flex items-center">
+      Learn more <ChevronRight size={18} className="ml-1" />
+    </div>
+  </Link>
 
-            <Link
-              to="/services/inputs"
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
-            >
-              <div className="flex items-center mb-6">
-                <div className="bg-orange-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-50 transition-colors">
-                  <Sprout size={28} className="text-orange-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  Farm Inputs
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Premium quality seeds, fertilizers, and tools for optimal farm
-                productivity.
-              </p>
-              <div className="text-orange-600 font-medium flex items-center">
-                Learn more <ChevronRight size={18} className="ml-1" />
-              </div>
-            </Link>
-          </div>
+  {/* Farm Inputs */}
+  <Link
+    to="/services/inputs"
+    className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
+  >
+    <div className="flex items-center mb-6">
+      <div className="bg-orange-100 w-14 h-14 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-50 transition-colors">
+        <Sprout size={28} className="text-orange-600" />
+      </div>
+      <h3 className="text-2xl font-bold text-gray-800">
+        Farm Inputs
+      </h3>
+    </div>
+    <p className="text-gray-600 mb-4">
+      Premium quality seeds, fertilizers, and tools for optimal farm
+      productivity.
+    </p>
+    <div className="text-orange-600 font-medium flex items-center">
+      Learn more <ChevronRight size={18} className="ml-1" />
+    </div>
+  </Link>
+</div>
         </div>
       </div>
 

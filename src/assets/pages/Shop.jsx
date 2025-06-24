@@ -649,6 +649,8 @@ import {
   Search,
   Plus,
   X,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 import mobilemakola from "../images/mobilemakola.png";
 import ShopCart from "../components/Cart/ShopCart";
@@ -920,19 +922,28 @@ const Shop = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-          {toastMessage}
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-down">
+          <div className="flex items-center">
+            <span>{toastMessage}</span>
+            <button
+              onClick={() => setShowToast(false)}
+              className="ml-4 text-white hover:text-gray-200"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       )}
 
       {/* Error Message */}
       {error && (
-        <div className="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+        <div className="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-down">
           <div className="flex items-center">
+            <AlertCircle className="w-5 h-5 mr-2" />
             <span>{error}</span>
             <button
               onClick={() => setError(null)}
-              className="ml-2 text-white hover:text-gray-200"
+              className="ml-4 text-white hover:text-gray-200"
             >
               <X className="w-4 h-4" />
             </button>
@@ -964,18 +975,23 @@ const Shop = () => {
       )}
 
       {/* Shop Header */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-8">
-          <img src={mobilemakola} alt="Mobile Makola" className="mb-4" />
+      <div className="bg-white shadow-sm sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center mb-4">
+            <img src={mobilemakola} alt="Mobile Makola" className="h-10" />
+            
+          
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <div className="flex flex-wrap gap-2 flex-1">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => handleCategoryChange(category.id)}
-                  className={`flex items-center px-4 py-2 rounded-full font-medium transition duration-200 ${getCategoryBgColor(
+                  className={`flex items-center px-4 py-2 rounded-full font-medium transition-all duration-200 ${getCategoryBgColor(
                     category.id
-                  )}`}
+                  )} shadow-sm hover:shadow-md`}
                 >
                   {category.icon}
                   {category.name}
@@ -987,7 +1003,7 @@ const Shop = () => {
             {activeCategory === "retail" && (
               <button
                 onClick={() => setShowSubscriptionModal(true)}
-                className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition whitespace-nowrap"
+                className="flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-all whitespace-nowrap shadow-sm hover:shadow-md"
               >
                 <ShoppingBasketIcon className="w-5 h-5 mr-2" />
                 Create Subscription
@@ -998,126 +1014,146 @@ const Shop = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
-        {/* Products Section */}
-        <div className={`${showCart ? "lg:w-3/4" : "w-full"} lg:pr-8`}>
-          <div className="flex flex-col md:flex-row items-center mb-8 gap-4">
-            <h2 className="text-2xl font-bold text-gray-800 mr-auto">
+      <div className="container mx-auto px-4 py-8">
+        {/* Products Section Header */}
+        <div className="flex flex-col md:flex-row items-center mb-8 gap-4">
+          <div className="flex items-center mr-auto">
+            <h2 className="text-2xl font-bold text-gray-800">
               {categories.find((cat) => cat.id === activeCategory)?.name}
             </h2>
-
-            {/* Search Bar */}
-            <div className="relative w-full md:w-64">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder={`Search ${
-                  activeCategory === "farm-input" ? "farm inputs..." : "products..."
-                }`}
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
+            {filteredProducts.length > 0 && !isLoading && !error && (
+              <span className="ml-2 px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">
+                {filteredProducts.length} items
+              </span>
+            )}
           </div>
 
-          {isLoading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-              <p className="ml-4 text-gray-600">Loading products...</p>
+          {/* Search Bar */}
+          <div className="relative w-full md:w-64">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-gray-400" />
             </div>
-          ) : error ? (
-            <div className="text-center py-12">
-              <div className="text-red-500 mb-4">
-                <X className="mx-auto h-10 w-10 mb-2" />
-                <p className="text-lg font-semibold">Failed to load products</p>
-                <p className="text-sm text-gray-600">{error}</p>
-              </div>
+            <input
+              type="text"
+              placeholder={`Search ${
+                activeCategory === "farm-input" ? "farm inputs..." : "products..."
+              }`}
+              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Content Area */}
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="animate-spin h-12 w-12 text-blue-500" />
+            <p className="ml-4 text-gray-600">Loading products...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow-sm p-6 max-w-md mx-auto">
+            <div className="text-red-500 mb-4">
+              <AlertCircle className="mx-auto h-10 w-10 mb-2" />
+              <p className="text-lg font-semibold">Failed to load products</p>
+              <p className="text-sm text-gray-600">{error}</p>
+            </div>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow-sm p-6 max-w-md mx-auto">
+            <Search className="mx-auto h-10 w-10 text-gray-400 mb-2" />
+            <h3 className="text-lg font-semibold text-gray-700 mb-1">
+              {searchQuery
+                ? `No products found for "${searchQuery}"`
+                : "No products available"}
+            </h3>
+            <p className="text-gray-500 mb-4">
+              {searchQuery
+                ? "Try different search terms"
+                : "Check back later for new inventory"}
+            </p>
+            {searchQuery && (
               <button
-                onClick={() => window.location.reload()}
-                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                onClick={() => setSearchQuery("")}
+                className="mt-2 text-blue-600 hover:text-blue-800 font-medium"
               >
-                Try Again
+                Clear search
               </button>
-            </div>
-          ) : filteredProducts.length === 0 ? (
-            <div className="text-center py-12">
-              <Search className="mx-auto h-10 w-10 text-gray-400 mb-2" />
-              <p className="text-gray-500">
-                {searchQuery
-                  ? `No products found for "${searchQuery}"`
-                  : "No products available in this category"}
-              </p>
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="mt-2 text-blue-600 hover:text-blue-800"
-                >
-                  Clear search
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 h-full cursor-pointer hover:shadow-lg transition-shadow"
-                  onClick={() => setSelectedProduct(product)}
-                >
-                  <div className="relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-48 object-cover"
-                      onError={(e) => {
-                        e.target.src = mobilemakola;
-                      }}
-                    />
-                    {product.quantity <= 10 && product.quantity > 0 && (
-                      <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded text-xs">
-                        Low Stock
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-1">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-lg font-bold">
-                        GHC {product.price?.toFixed(2) || "0.00"}
-                      </span>
-                      <span className="text-sm text-gray-500">
-                        Qty: {product.quantity}
+            )}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer group"
+                onClick={() => setSelectedProduct(product)}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    onError={(e) => {
+                      e.target.src = mobilemakola;
+                    }}
+                  />
+                  {product.quantity <= 10 && product.quantity > 0 && (
+                    <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded text-xs font-medium">
+                      Low Stock
+                    </div>
+                  )}
+                  {product.quantity === 0 && (
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                      <span className="bg-white text-red-600 px-3 py-1 rounded-full text-sm font-bold">
+                        Out of Stock
                       </span>
                     </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart(product);
-                        setToastMessage(`${product.name} added to cart!`);
-                        setShowToast(true);
-                        setTimeout(() => setShowToast(false), 3000);
-                      }}
-                      disabled={product.quantity === 0}
-                      className={`w-full p-2 rounded-md ${getBtnColor()} text-white hover:opacity-90 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center`}
-                    >
-                      <Plus className="w-5 h-5 mr-2" />
-                      {product.quantity === 0 ? "Out of Stock" : "Add to Cart"}
-                    </button>
-                  </div>
+                  )}
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-1 text-gray-800 line-clamp-1">
+                    {product.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2 h-10">
+                    {product.description}
+                  </p>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-lg font-bold text-gray-800">
+                      GHC {product.price?.toFixed(2) || "0.00"}
+                    </span>
+                    <span className={`text-sm ${product.quantity > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {product.quantity > 0 ? `${product.quantity} available` : "Sold out"}
+                    </span>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(product);
+                      setToastMessage(`${product.name} added to cart!`);
+                      setShowToast(true);
+                      setTimeout(() => setShowToast(false), 3000);
+                    }}
+                    disabled={product.quantity === 0}
+                    className={`w-full p-2 rounded-md ${getBtnColor()} text-white hover:opacity-90 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center transition-colors`}
+                  >
+                    <Plus className="w-5 h-5 mr-2" />
+                    {product.quantity === 0 ? "Out of Stock" : "Add to Cart"}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
+
+     
     </div>
   );
 };

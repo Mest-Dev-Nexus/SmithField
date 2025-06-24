@@ -1,12 +1,11 @@
+import { useState } from 'react';
+import { Link } from 'react-router';
 import {
   Leaf,
   Warehouse,
   Truck,
   Cpu,
-  ShieldCheck,
   Users,
-  Globe,
-  Smartphone,
   BarChart2,
   DollarSign,
   Sun,
@@ -16,20 +15,98 @@ import {
   HeartHandshake,
   BookOpenText,
   Scale,
-  Link2,
+  Link2,  X, ChevronLeft, ChevronRight
 } from "lucide-react";
 import img3 from "../images/img3.jpeg";
 import bgpic from "../images/bgpic.jpg";
+import gal1 from "../images/gal1.jpeg"
+import gal2 from "../images/gal2.jpeg"
+import gal3 from "../images/gal3.jpeg"
+import gal4 from "../images/gal4.jpeg"
+import gal5 from "../images/gal5.jpeg"
+import gal6 from "../images/gal6.jpeg"
+import gal7 from "../images/gal7.jpeg"
+import gal8 from "../images/gal8.jpeg"
+import gal9 from "../images/gal9.jpeg"
+import gal10 from "../images/gal10.jpeg"
+import gal11 from "../images/gal11.jpeg"
+import gal12 from "../images/gal12.jpeg"
+import gal13 from "../images/gal13.jpeg"
+import gal14 from "../images/gal14.jpeg"
+import gal15 from "../images/gal15.jpeg"
+import gal16 from "../images/gal6.jpeg"
+import gal18 from "../images/gal6.jpeg"
 
 const About = () => {
+ const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+   const openModal = (index) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const goToNext = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const goToPrev = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleSwipe = (delta) => {
+    if (delta < 0) {
+      goToNext();
+    } else if (delta > 0) {
+      goToPrev();
+    }
+  };
+
+   const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      padding: 0,
+      border: 'none',
+      background: 'none',
+      overflow: 'hidden',
+    },
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      zIndex: 1000,
+    },
+  };
+
   // Gallery image placeholder data
-  const galleryImages = Array(15)
-    .fill(null)
-    .map((_, i) => ({
-      id: i + 1,
-      src: `/images/gallery/gallery-${i + 1}.jpg`,
-      alt: `SmithField Agribusiness operation ${i + 1}`,
-    }));
+   const galleryImages = [
+    { id: 1, src: gal1, alt: "SmithField Agribusiness operation 1" },
+    { id: 2, src: gal2, alt: "SmithField Agribusiness operation 2" },
+    { id: 3, src: gal3, alt: "SmithField Agribusiness operation 3" },
+    { id: 4, src: gal4, alt: "SmithField Agribusiness operation 4" },
+    { id: 5, src: gal5, alt: "SmithField Agribusiness operation 5" },
+    { id: 6, src: gal6, alt: "SmithField Agribusiness operation 6" },
+    { id: 7, src: gal7, alt: "SmithField Agribusiness operation 7" },
+    { id: 8, src: gal8, alt: "SmithField Agribusiness operation 8" },
+    { id: 9, src: gal9, alt: "SmithField Agribusiness operation 9" },
+    { id: 10, src: gal10, alt: "SmithField Agribusiness operation 10" },
+    { id: 11, src: gal11, alt: "SmithField Agribusiness operation 11" },
+    { id: 12, src: gal12, alt: "SmithField Agribusiness operation 12" },
+    { id: 13, src: gal13, alt: "SmithField Agribusiness operation 13" },
+    { id: 14, src: gal14, alt: "SmithField Agribusiness operation 14" },
+    { id: 15, src: gal15, alt: "SmithField Agribusiness operation 15" },
+  ];
 
   // Process steps data
   const processSteps = [
@@ -74,38 +151,40 @@ const About = () => {
   return (
     <div className="font-nunito-sans min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center mb-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={img3}
-            alt="Agribusiness background"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/30"></div>
-        </div>
+     <section className="relative h-[70vh] flex items-center justify-center mb-20 overflow-hidden">
+  <div className="absolute inset-0">
+    <img
+      src={img3}
+      alt="Agribusiness background"
+      className="w-full h-full object-cover object-center"
+    />
+    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/30"></div>
+  </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
-            About <span className="text-green-300">SmithField</span>{" "}
-            Agribusiness
-          </h1>
-          <p className="text-xl text-gray-100 max-w-3xl mx-auto mb-8">
-            We transform agri-food supply chains through technology, connecting
-            smallholder farmers directly to consumers.Welcome to SmithField,
-            where we're on a mission to feed a hungry world. As the population
-            grows, we need to produce 50% more food over the next 40 years.
-            That's where we come in. We're a team of young, passionate
-            professionals working to make food accessible, affordable,
-            appropriate, and healthy for all Ghanaians and Africans, no matter
-            their income levels. We're all about utilizing the latest research
-            and technology to bring you the freshest, most delicious fruits,
-            vegetables, and meats from around the country and beyond. In fact,
-            we source a whopping 80% of our foods from within Ghana and the
-            surrounding West African region. We believe in supporting local
-            farmers and bringing you the best of what our region has to offer.
-          </p>
-        </div>
-      </section>
+  <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <div className="bg-white/5 border-white/20 backdrop-blur-sm p-8 rounded-lg">
+      <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
+        About <span className="text-green-500">SmithField</span>{" "}
+        Agribusiness
+      </h1>
+      <p className="text-xl text-white max-w-3xl mx-auto mb-8">
+        We transform agri-food supply chains through technology, connecting
+        smallholder farmers directly to consumers.Welcome to SmithField,
+        where we're on a mission to feed a hungry world. As the population
+        grows, we need to produce 50% more food over the next 40 years.
+        That's where we come in. We're a team of young, passionate
+        professionals working to make food accessible, affordable,
+        appropriate, and healthy for all Ghanaians and Africans, no matter
+        their income levels. We're all about utilizing the latest research
+        and technology to bring you the freshest, most delicious fruits,
+        vegetables, and meats from around the country and beyond. In fact,
+        we source a whopping 80% of our foods from within Ghana and the
+        surrounding West African region. We believe in supporting local
+        farmers and bringing you the best of what our region has to offer.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* Mission & Values */}
       <section className="max-w-7xl mx-auto px-4 mb-20">
@@ -396,7 +475,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Our Impact - Redesigned */}
+      {/* Our Impact */}
       <section className="relative py-20 text-white mb-20">
         <div className="absolute inset-0 z-0">
           <img
@@ -474,45 +553,48 @@ const About = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="max-w-7xl mx-auto px-4 mb-20">
-        <div className="text-center mb-12">
-          <span className="inline-block px-3 py-1 text-sm font-semibold text-green-600 bg-green-100 rounded-full mb-4">
-            In Action
-          </span>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Gallery</h2>
-          <div className="w-20 h-1 bg-green-500 mx-auto"></div>
-        </div>
+<section className="max-w-7xl mx-auto px-4 mb-20">
+  <div className="text-center mb-12">
+    <span className="inline-block px-3 py-1 text-sm font-semibold text-green-600 bg-green-100 rounded-full mb-4">
+      In Action
+    </span>
+    <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Gallery</h2>
+    <div className="w-20 h-1 bg-green-500 mx-auto"></div>
+  </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {galleryImages.map((image) => (
-            <div
-              key={image.id}
-              className="aspect-square overflow-hidden rounded-xl shadow-md relative group"
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    {galleryImages.map((image) => (
+      <div
+        key={image.id}
+        className="aspect-square overflow-hidden rounded-xl shadow-md relative group"
+      >
+        {/* Replace the placeholder div with actual img tag */}
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+          <button className="bg-white text-green-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <div className="bg-gray-200 w-full h-full flex items-center justify-center transition-all duration-500 group-hover:opacity-90">
-                <span className="text-gray-500">Image {image.id}</span>
-              </div>
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
-                <button className="bg-white text-green-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          ))}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+              />
+            </svg>
+          </button>
         </div>
-      </section>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="relative py-20 text-white mb-20">
@@ -535,9 +617,11 @@ const About = () => {
               Ghana. Partner with us today.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
+             <Link to='/contact'>
               <button className="bg-white text-green-700 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
                 Contact Our Team
               </button>
+             </Link>
             </div>
           </div>
         </div>
