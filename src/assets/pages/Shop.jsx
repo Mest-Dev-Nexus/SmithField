@@ -356,7 +356,7 @@
 //         //     },
 //         //   ],
 //         // };
-// const data = await apiGetAllProducts() 
+// const data = await apiGetAllProducts()
 // console.log(data)
 //         setProducts(data.data);
 //         // setFilteredProducts(mockProducts[activeCategory] || []);
@@ -634,12 +634,6 @@
 
 // export default Shop;
 
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import {
   ShoppingBag,
@@ -658,13 +652,34 @@ import SubscriptionModal from "../components/modals/Subscription";
 import ProductModal from "../components/modals/ProductModal";
 import { useCart } from "../context/CartContext";
 import { apiGetAllProducts } from "../services/products";
+import triggervalve from "../images/trigger valve.jpg";
+import lance from "../images/lance extention.jpg";
+import sphere from "../images/sphere.jpg";
+import jactopm30 from "../images/jacto pm30.jpg";
+import jactogm3 from "../images/jacto gm3.jpg";
+import jactopm10 from "../images/jacto pm10.jpg";
+import jactohh5 from "../images/jacto hh5.jpg";
+import jactohh15 from "../images/jacto hh1.5.jpg";
+import jactodjb from "../images/jacto djb.jpg";
+import redonion from "../images/red onion.jpg";
+import tomato from "../images/tomato.jpg";
+import watermelon from "../images/watermelon.jpg";
+import amco301010 from "../images/amco 301010.jpg";
+import amco121236 from "../images/amco 121236.jpg";
+import amco191919 from "../images/amco 191919.jpg";
+import councilactiv from "../images/council activ.jpg";
+import beltexpert from "../images/belt expert.jpg";
+import nutrel24 from "../images/nutrel 24.jpg";
+import specf1 from "../images/spec f1.jpg";
+import hotpepper from "../images/hot pepper.jpg";
 
 // Subscription packages data
 const subscriptionPackages = [
   {
     id: "family-essentials",
     name: "Family Essentials",
-    description: "Perfect for a family of 4, includes staple foods and fresh produce",
+    description:
+      "Perfect for a family of 4, includes staple foods and fresh produce",
     price: 99.99,
     frequencyDiscounts: {
       weekly: 0,
@@ -721,20 +736,20 @@ const categories = [
   {
     id: "retail",
     name: "Retail",
-    icon: <ShoppingBag className="w-5 h-5 mr-2" />,
-    shopType: "retail"
+    icon: <ShoppingBag className="w-1.5h-5 mr-2" />,
+    shopType: "retail",
   },
   {
     id: "wholesale",
-    name: "Wholesale", 
+    name: "Wholesale",
     icon: <Truck className="w-5 h-5 mr-2" />,
-    shopType: "wholesale"
+    shopType: "wholesale",
   },
   {
     id: "farm-input",
     name: "Farm Inputs",
     icon: <Shovel className="w-5 h-5 mr-2" />,
-    shopType: "farm-input"
+    shopType: "farm-input",
   },
 ];
 
@@ -746,11 +761,223 @@ const frequencyOptions = [
 
 const dayOptions = [
   "Monday",
-  "Tuesday", 
+  "Tuesday",
   "Wednesday",
   "Thursday",
   "Friday",
   "Saturday",
+];
+
+const farmInputProducts = [
+  {
+    id: "farm-1",
+    name: "Trigger Valve Assembly LP-3 - XP16, HD400 ",
+    description: "",
+    price: 100.0,
+    shopType: "farm-input",
+    image: triggervalve,
+    quantity: 50,
+    availability: true,
+  },
+  {
+    id: "farm-2",
+    name: "Lance Extention",
+    description: "All jacto sprayers",
+    price: 220.0,
+    shopType: "farm-input",
+    image: lance,
+    quantity: 30,
+    availability: true,
+  },
+  {
+    id: "farm-3",
+    name: "Stainless Steel Sphere",
+    description: "7/16 - XP16",
+    price: 180.0,
+    shopType: "farm-input",
+    image: sphere,
+    quantity: 15,
+    availability: true,
+  },
+  {
+    id: "farm-4",
+    name: "Jacto PM-30",
+    description: "",
+    price: 120.0,
+    shopType: "farm-input",
+    image: jactopm30,
+    quantity: 40,
+    availability: true,
+  },
+  {
+    id: "farm-5",
+    name: "Jacto GM - 3",
+    description: "Pruning Lopper",
+    price: 85.0,
+    shopType: "farm-input",
+    image: jactogm3,
+    quantity: 25,
+    availability: true,
+  },
+  {
+    id: "farm-6",
+    name: "Jacto PM - 10",
+    description: "Picking and Trimming Snip",
+    price: 45.0,
+    shopType: "farm-input",
+    image: jactopm10,
+    quantity: 20,
+    availability: true,
+  },
+  {
+    id: "farm-7",
+    name: "Jacto HH - 5",
+    description: "Manual portable sprayer. Tank capacity: 5L",
+    price: 65.0,
+    shopType: "farm-input",
+    image: jactohh5,
+    quantity: 18,
+    availability: true,
+  },
+  {
+    id: "farm-8",
+    name: "Jacto HH - 1.5",
+    description: "Manual Portable Sprayer. Tank capacity: 1.5L",
+    price: 75.0,
+    shopType: "farm-input",
+    image: jactohh15,
+    quantity: 12,
+    availability: true,
+  },
+  {
+    id: "farm-9",
+    name: "Jacto DJB -16",
+    description:
+      "Dual purpose re-chargable battery sprayer.Doser and sprayer. Exclusive timer system that applies from 5- to 300-ml dosages with precision and speed. Easy, practical and precise. With a battery charge. ",
+    price: 55.0,
+    shopType: "farm-input",
+    image: jactodjb,
+    quantity: 10,
+    availability: true,
+  },
+  {
+    id: "farm-10",
+    name: "Red Onion Seeds",
+    description: "Treated seeds. Available in 100gr & 500gr",
+    price: 450.0,
+    shopType: "farm-input",
+    image: redonion,
+    quantity: 8,
+    availability: true,
+  },
+  {
+    id: "farm-11",
+    name: "Tomato Seeds",
+    description: "Open Field Tomato Origin: Proseed - Holland. Size: 100g",
+    price: 25.0,
+    shopType: "farm-input",
+    image: tomato,
+    quantity: 35,
+    availability: true,
+  },
+  {
+    id: "farm-12",
+    name: "Watermelon Seeds",
+    description: "Origin: Proseed - Holland Size: 100g",
+    price: 30.0,
+    shopType: "farm-input",
+    image: watermelon,
+    quantity: 60,
+    availability: true,
+  },
+  {
+    id: "farm-13",
+    name: "Amcolon 30-10-10 +TE",
+    description:
+      "Soluble high nitrogen NPK with micro elements for fertigation, foliar spray and topdressing. Origin: MCFP- Jordan Packing: 100gr, 1kg, 25kg",
+    price: 15.0,
+    shopType: "farm-input",
+    image: amco301010,
+    quantity: 45,
+    availability: true,
+  },
+  {
+    id: "farm-14",
+    name: "Amcolon 12-12-36 +TE",
+    description:
+      " Soluble high potassium NPK with micro elements for fertigation, foliar spray and topdressing Origin: MCFP- Jordan Packing: 100gr, 1kg, 25kg",
+    price: 120.0,
+    shopType: "farm-input",
+    image: amco121236,
+    quantity: 5,
+    availability: true,
+  },
+  {
+    id: "farm-15",
+    name: "Amcolon 19-19-19 +TE",
+    description:
+      "Soluble balanced NPK with micro elements for fertigation, foliar spray and topdressing Origin: MCFP- Jordan Packing: 100gr, 1kg, 25kg",
+    price: 280.0,
+    shopType: "farm-input",
+    image: amco191919,
+    quantity: 7,
+    availability: true,
+  },
+  {
+    id: "farm-16",
+    name: "Council Activ 30 WG",
+    description:
+      "Early post emergence herbicide for Rice. Active Ingredients: Ethoxysulfuron (10%), Triafamone (30%). Dose/Acre: 50gr By: Bayer Cropscience. Pack size: 10gr",
+    price: 95.0,
+    shopType: "farm-input",
+    image: councilactiv,
+    quantity: 9,
+    availability: true,
+  },
+  {
+    id: "farm-17",
+    name: "Belt Expert 480SC",
+    description:
+      "The expert insecticide for the control of Fall Armyworms, Diamond Back Moth, Tuta Absoluta, caterpillars and Fruit Borers with a very low dose Active Ingredient Flubendiamide 24% + Thiacloprid 24% SC Origin: Bayer Cropscience - Germany Packing: 100ml",
+    price: 18.0,
+    shopType: "farm-input",
+    image: beltexpert,
+    quantity: 80,
+    availability: true,
+  },
+  {
+    id: "farm-18",
+    name: "Nutrel 24",
+    description:
+      " Fruitflies attractant (Protein Bait) for the control of fruitflies in tree crops, such as Mangoes and Citrus. Suitable for both Organic and conventional farming. Used in mix with Leopard as insect killer in Traps or spot spraying. Active Ingredient: Amino acids and peptides 24% Origin: SICIT - Italy Available in 5L",
+    price: 40.0,
+    shopType: "farm-input",
+    image: nutrel24,
+    quantity: 15,
+    availability: true,
+  },
+  {
+    id: "farm-19",
+    name: "Spectacular F1",
+    description:
+      " Mediterranean cucumber with good plant vigor and crunchy taste. Origin: Agrimatco - Jordan. Packing: 500seeds",
+    price: 320.0,
+    shopType: "farm-input",
+    image: specf1,
+    quantity: 6,
+    availability: true,
+  },
+  {
+    id: "farm-20",
+    name: "Hot Pepper",
+    description:
+      " Hybrid chili 🌶️ pepper seeds. Strong, semi-erect plant habit. Excellent re-flushing character. Red Dry color value {80-90 ASTA) & Medium Pungent (35000-40000 SHU). Early with very high red dry yielding capacity. Smooth and Good drying quality. Red Dry value (90 ASTA) & Medium Pungent (40000 SHU)Very good FVT with Drought tolerance. Origin: Syngenta. Packing: 1000 seeds",
+    price: 50.0,
+    shopType: "farm-input",
+    image: hotpepper,
+    quantity: 22,
+    availability: true,
+  },
 ];
 
 const Shop = () => {
@@ -783,15 +1010,20 @@ const Shop = () => {
   // Helper function to construct full image URL
   const getImageUrl = (imagePath) => {
     if (!imagePath) return mobilemakola;
-    
+
     // If it's already a full URL, return as is
-    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
       return imagePath;
     }
-    
-    // If it's a relative path, construct the full URL
-    const baseUrl = 'https://feat-smithfieldbackend.onrender.com';
-    return `${baseUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+
+    // If it's a local image path (starts with /images), return as is
+    if (imagePath.startsWith("/images")) {
+      return imagePath;
+    }
+
+    // If it's a relative path from API, construct the full URL
+    const baseUrl = "https://feat-smithfieldbackend.onrender.com";
+    return `${baseUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
   };
 
   // Fetch products
@@ -800,31 +1032,36 @@ const Shop = () => {
       try {
         setIsLoading(true);
         setError(null);
-        
+
+        // For farm-input category, use the dummy data
+        if (activeCategory === "farm-input") {
+          setProducts(farmInputProducts);
+          setIsLoading(false);
+          return;
+        }
+
+        // For other categories, fetch from API
         const response = await apiGetAllProducts();
-        
+
         if (response && response.data) {
           const apiProducts = Array.isArray(response.data) ? response.data : [];
-          
-          // Transform products to match expected structure
-          const transformedProducts = apiProducts.map(product => ({
+
+          const transformedProducts = apiProducts.map((product) => ({
             id: product._id || product.id,
             name: product.name,
             description: product.description,
             category: product.category,
             price: parseFloat(product.price || 0),
             shopType: product.shopType,
-            image: getImageUrl(product.image), // Use helper function
+            image: getImageUrl(product.image),
             quantity: product.quantity || 0,
-            availability: product.availability
+            availability: product.availability,
           }));
 
           setProducts(transformedProducts);
-          
         } else {
           throw new Error("Invalid response structure from API");
         }
-        
       } catch (error) {
         console.error("Error fetching products:", error);
         setError(error.message || "Failed to fetch products");
@@ -835,25 +1072,26 @@ const Shop = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [activeCategory]);
 
   // Filter products by category and search
   useEffect(() => {
-    let filtered = products.filter(product => {
+    let filtered = products.filter((product) => {
       // Filter by shopType matching active category
       const categoryMatch = product.shopType === activeCategory;
-      
+
       // Filter by availability
       const availabilityMatch = product.availability === true;
-      
+
       // Filter by search query
-      const searchMatch = searchQuery.trim() === "" || 
+      const searchMatch =
+        searchQuery.trim() === "" ||
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       return categoryMatch && availabilityMatch && searchMatch;
     });
-    
+
     setFilteredProducts(filtered);
   }, [products, activeCategory, searchQuery]);
 
@@ -896,7 +1134,9 @@ const Shop = () => {
   const saveSubscription = () => {
     setShowSubscriptionModal(false);
     setToastMessage(
-      `Your ${subscription.selectedPackage?.name || "custom"} subscription has been saved!`
+      `Your ${
+        subscription.selectedPackage?.name || "custom"
+      } subscription has been saved!`
     );
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
@@ -979,8 +1219,6 @@ const Shop = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center mb-4">
             <img src={mobilemakola} alt="Mobile Makola" className="h-10" />
-            
-          
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -1036,7 +1274,9 @@ const Shop = () => {
             <input
               type="text"
               placeholder={`Search ${
-                activeCategory === "farm-input" ? "farm inputs..." : "products..."
+                activeCategory === "farm-input"
+                  ? "farm inputs..."
+                  : "products..."
               }`}
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all"
               value={searchQuery}
@@ -1128,8 +1368,14 @@ const Shop = () => {
                     <span className="text-lg font-bold text-gray-800">
                       GHC {product.price?.toFixed(2) || "0.00"}
                     </span>
-                    <span className={`text-sm ${product.quantity > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {product.quantity > 0 ? `${product.quantity} available` : "Sold out"}
+                    <span
+                      className={`text-sm ${
+                        product.quantity > 0 ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {product.quantity > 0
+                        ? `${product.quantity} available`
+                        : "Sold out"}
                     </span>
                   </div>
                   <button
@@ -1152,8 +1398,6 @@ const Shop = () => {
           </div>
         )}
       </div>
-
-     
     </div>
   );
 };
