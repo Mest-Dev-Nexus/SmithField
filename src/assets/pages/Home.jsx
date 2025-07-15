@@ -14,6 +14,7 @@ import {
   Check,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import newbg from "../images/newbg.jpg"
 import bgpic from "../images/bgpic.jpg";
 import coolr from "../images/coolr.png";
 import llyodstunnels from "../images/llyodstunnels.png";
@@ -36,7 +37,7 @@ const Home = () => {
           loop
           playsInline
           preload="auto"
-          poster={img3}
+          poster={newbg}
           type="video/mp4"
         >
           Your browser does not support the video tag.
@@ -212,7 +213,7 @@ const Home = () => {
                   </li>
                 </ul>
                 <Link
-                  to="/services/greenhouses"
+                  to="/services"
                   className="flex items-center text-green-600 font-medium hover:text-green-700 group text-lg transition-all"
                 >
                   Explore greenhouse solutions
@@ -229,7 +230,7 @@ const Home = () => {
          <div className="grid md:grid-cols-2 gap-6">
   {/* Cold Storage Solutions */}
   <Link
-    to="/services/cold-storage"
+    to="/services"
     className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
   >
     <div className="flex items-center mb-6">
@@ -251,7 +252,7 @@ const Home = () => {
 
   {/* Postharvest Management */}
   <Link
-    to="/services/postharvest-management"
+    to="/services"
     className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
   >
     <div className="flex items-center mb-6">
@@ -273,7 +274,7 @@ const Home = () => {
 
   {/* Agribusiness Consultancy */}
   <Link
-    to="/services/consultancy"
+    to="/services"
     className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
   >
     <div className="flex items-center mb-6">
@@ -295,7 +296,7 @@ const Home = () => {
 
   {/* Farm Inputs */}
   <Link
-    to="/services/inputs"
+    to="/shop"
     className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
   >
     <div className="flex items-center mb-6">

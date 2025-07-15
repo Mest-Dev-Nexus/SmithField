@@ -1,6 +1,6 @@
 import { MapPin, Mail, Phone, Clock, MessageSquare, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import bgpic from "../images/bgpic.jpg";
+import bgpic from "../images/img1.jpeg";
 
 const Contact = () => {
   const [activeFaq, setActiveFaq] = useState(null);
