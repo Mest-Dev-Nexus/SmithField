@@ -96,13 +96,10 @@ const AddProduct = () => {
     setIsLoading(true);
     
     try {
-      // Here you would normally send the form data to your API
       console.log("Submitting product:", formData);
       
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Success - redirect to product listing or show success message
       alert("Product added successfully!");
       navigate(-1);
     } catch (error) {
