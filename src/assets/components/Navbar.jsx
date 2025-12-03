@@ -4,6 +4,8 @@ import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import ShopCart from "../components/Cart/ShopCart";
+import mobilemakola from "../images/mobilemakola.png";
+
 
 // Store Popup Component
 const StorePopup = ({ onClose }) => {
@@ -16,18 +18,16 @@ const StorePopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full border border-green-200">
-        <div className="flex justify-between items-center p-4 border-b border-green-100 bg-green-50 rounded-t-xl">
-          <div className="flex items-center gap-3">
-            <Package className="text-green-600" size={24} />
-            <h3 className="text-lg font-semibold text-green-900">Select Store</h3>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-green-600 hover:text-green-800 p-1 rounded-full hover:bg-green-100 transition-colors"
-          >
-            <X size={20} />
-          </button>
-        </div>
+         <div className="flex justify-between items-center p-4 border-b border-green-100 bg-green-50 rounded-t-xl">
+                     <img src={mobilemakola} className="h-14" alt="Mobile Makola" />
+                     <h3 className="text-lg font-semibold text-green-900">Select Store</h3>
+                     <button
+                       onClick={() => setIsPopupOpen(false)}
+                       className="text-green-600 hover:text-green-800 p-1 rounded-full hover:bg-green-100 transition-colors"
+                     >
+                       <X size={20} />
+                     </button>
+                   </div>
         
         <div className="p-4 space-y-2">
           {storefronts.map((store, index) => (
