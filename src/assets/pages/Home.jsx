@@ -12,6 +12,7 @@ import {
   BriefcaseBusiness,
   Sprout,
   Check,
+  X 
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import newbg from "../images/newbg.jpg"
@@ -22,6 +23,61 @@ import mobilemakola from "../images/mobilemakola.png";
 import youngfarmers from "../images/youngfarmers.png";
 import grnhs3 from "../images/grnhs3.jpeg";
 import img3 from "../images/img1.jpeg";
+
+// Store Popup Component
+const StorePopup = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const storefronts = [
+    { name: "Retail", url: "https://paystack.shop/mobile-makola-retail" },
+    { name: "Wholesale", url: "https://paystack.shop/mobile-makola-wholesale" },
+    { name: "Farm Inputs", url: "https://paystack.shop/mobile-makola-farm-inputs" }
+  ];
+
+  return (
+    <>
+      <button
+        onClick={() => setIsPopupOpen(true)}
+        className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center gap-2"
+      >
+        <Package size={20} />
+        Shop Products
+      </button>
+
+      {isPopupOpen && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full border border-green-200">
+            <div className="flex justify-between items-center p-4 border-b border-green-100 bg-green-50 rounded-t-xl">
+              <img src={mobilemakola} className="h-14" alt="Mobile Makola" />
+              <h3 className="text-lg font-semibold text-green-900">Select Store</h3>
+              <button
+                onClick={() => setIsPopupOpen(false)}
+                className="text-green-600 hover:text-green-800 p-1 rounded-full hover:bg-green-100 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="p-4 space-y-2">
+              {storefronts.map((store, index) => (
+                <a
+                  key={index}
+                  href={store.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-left p-3 rounded-lg bg-green-50 hover:bg-green-100 border border-green-200 hover:border-green-400 text-green-800 hover:text-green-900 transition-all duration-200 font-medium"
+                  onClick={() => setIsPopupOpen(false)}
+                >
+                  {store.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 const Home = () => {
   const videoRef = useRef(null);
@@ -62,13 +118,8 @@ const Home = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 animate-fadeInUp delay-200">
-              <Link
-                to="/shop"
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg text-lg font-medium transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center gap-2"
-              >
-                <Package size={20} />
-                Shop Products
-              </Link>
+             
+              <StorePopup />
 
               <Link
                 to="/services"
@@ -82,6 +133,7 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Rest of your existing Home component remains exactly the same */}
       {/* Company Overview Section */}
       <div className="py-24 bg-white">
         <div className="container mx-auto px-6">
@@ -92,7 +144,7 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Cultivating Agricultural Excellence Across Africa
             </h2>
-            <div className="w-24 h-1.5 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1.5 bg-gradientfrom-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600 leading-relaxed">
               SmithField Agribusiness is at the forefront of Africa's
               agricultural revolution. We integrate cutting-edge technology with
@@ -103,7 +155,7 @@ const Home = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border border-gray-100">
-              <div className="bg-gradient-to-r from-green-100 to-green-50 w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+              <div className="bg-gradient from-green-100 to-green-50 w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
                 <Leaf size={36} className="text-green-600" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
@@ -117,7 +169,7 @@ const Home = () => {
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border border-gray-100">
-              <div className="bg-gradient-to-r from-blue-100 to-blue-50 w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+              <div className="bg-gradient from-blue-100 to-blue-50 w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
                 <Award size={36} className="text-blue-600" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
@@ -130,7 +182,7 @@ const Home = () => {
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border border-gray-100">
-              <div className="bg-gradient-to-r from-green-100 to-blue-100 w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
+              <div className="bg-gradient from-green-100 to-blue-100 w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform">
                 <LinkIcon size={36} className="text-green-600" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
@@ -155,7 +207,7 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Comprehensive Agricultural Solutions
             </h2>
-            <div className="w-24 h-1.5 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1.5 bg-gradient from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600">
               We provide end-to-end solutions tailored to Africa's unique
               agricultural challenges
@@ -171,7 +223,7 @@ const Home = () => {
                   alt="Greenhouse Farming Solutions"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient from-black/70 to-transparent p-6">
                   <span className="text-white font-medium text-lg">
                     Greenhouse Technology
                   </span>
@@ -179,7 +231,7 @@ const Home = () => {
               </div>
               <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                 <div className="flex items-center mb-6">
-                  <div className="bg-gradient-to-r from-green-100 to-blue-100 w-16 h-16 rounded-xl flex items-center justify-center transform transition-all hover:rotate-6">
+                  <div className="bg-gradient from-green-100 to-blue-100 w-16 h-16 rounded-xl flex items-center justify-center transform transition-all hover:rotate-6">
                     <Sun className="text-green-600" size={32} />
                   </div>
                   <h3 className="text-3xl font-bold text-gray-800 ml-4">
@@ -296,7 +348,7 @@ const Home = () => {
 
   {/* Farm Inputs */}
   <Link
-    to="/shop"
+    to="https://paystack.shop/mobile-makola-farm-inputs"
     className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-1 border border-gray-100 group"
   >
     <div className="flex items-center mb-6">
@@ -327,7 +379,7 @@ const Home = () => {
             alt="African agriculture background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 to-blue-900/90"></div>
+          <div className="absolute inset-0  bg-gradient-to-r from-green-900/80 to-blue-900/80"></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -381,7 +433,7 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Trusted By Agricultural Leaders
             </h2>
-            <div className="w-24 h-1.5 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1.5 bg-gradient from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600">
               Collaborating with industry leaders to drive agricultural
               transformation
@@ -475,7 +527,7 @@ const Home = () => {
                   alt="Farmers working"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-800/90 to-blue-800/90 p-12 flex flex-col justify-center">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-900/80 to-blue-900/80 p-12 flex flex-col justify-center">
                   <div className="flex items-center mb-6">
                     <div className="bg-white/20 w-16 h-16 rounded-xl flex items-center justify-center transform transition-all hover:rotate-6">
                       <Sprout size={32} className="text-white" />
@@ -580,7 +632,7 @@ const Home = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-green-600 to-blue-500 text-white py-4 rounded-lg font-bold hover:from-green-700 hover:to-blue-600 transition-colors shadow-md hover:shadow-lg"
+                    className="w-full bg-gradient from-green-600 to-blue-500 text-white py-4 rounded-lg font-bold hover:from-green-700 hover:to-blue-600 transition-colors shadow-md hover:shadow-lg"
                   >
                     Join Our Network
                   </button>
@@ -601,7 +653,7 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Success Stories From Our Farmers
             </h2>
-            <div className="w-24 h-1.5 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1.5 bg-gradient from-green-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600">
               Hear directly from farmers who have transformed their operations
               with our solutions
@@ -682,7 +734,7 @@ const Home = () => {
                     <input
                       type="email"
                       placeholder="Your email address"
-                      className="flex-grow px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="flex px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     />
                     <button
                       type="submit"
@@ -701,7 +753,7 @@ const Home = () => {
                   <div className="flex gap-4">
                     <Link
                       to="https://www.instagram.com/smithfield_agribusiness/"
-                      className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-600 to-purple-600  flex items-center justify-center text-white hover:shadow-lg transition-all "
+                      className="w-12 h-12 rounded-full bg-gradient from-pink-600 to-purple-600  flex items-center justify-center text-white hover:shadow-lg transition-all "
                     >
                       <svg
                         className="w-5 h-5"
@@ -713,7 +765,7 @@ const Home = () => {
                     </Link>
                     <Link
                       to="https:gh.linkedin.com/company/smithfield-agribusiness"
-                      className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center text-white hover:shadow-lg transition-all"
+                      className="w-12 h-12 rounded-full bg-gradient from-blue-600 to-blue-800 flex items-center justify-center text-white hover:shadow-lg transition-all"
                     >
                       <svg
                         className="w-5 h-5"
